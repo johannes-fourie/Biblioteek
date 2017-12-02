@@ -1,0 +1,43 @@
+﻿<Window x:Class="Biblioteek.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Biblioteek"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <local:CheckedToVisibility x:Key="CheckedToVisibility"/>
+    </Window.Resources>
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Height="45" Margin="0,0,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="95"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="95"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="95"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="95"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <RadioButton Name="btnOorsig" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu" IsChecked="True">Oorsig</RadioButton>
+            <RadioButton Name="btnLeen" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu">Neem uit</RadioButton>
+            <RadioButton Name="btnKatalogis" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu">Katalogis</RadioButton>
+            <RadioButton Name="btnLeerder" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu">Leerders</RadioButton>
+        </Grid>
+
+        <local:Katalogus Grid.Row="1" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=btnKatalogis}"/>
+        <local:Leen Grid.Row="1" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=btnLeen}"/>
+        <local:Oorsig Grid.Row="1" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=btnOorsig}"/>
+        <local:Leerder Grid.Row="1" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=btnLeerder}"/>
+        
+    </Grid>
+</Window>

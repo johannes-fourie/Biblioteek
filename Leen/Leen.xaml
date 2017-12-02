@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="Biblioteek.Leen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Biblioteek"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <local:CheckedToVisibilityInvert x:Key="CheckedToVisibilityInvert"/>
+        <local:CheckedToVisibility x:Key="CheckedToVisibility"/>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <local:LeenViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock FontSize="40" Text="Neem Uit"/>
+
+        <ComboBox x:Name="Leerder" ItemsSource="{Binding Leerder}" IsTextSearchEnabled="True" IsEditable="True" Grid.Row="2" FontSize="15"/>
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" x:Name="Boek" FontSize="15"/>
+
+            <Button Grid.Column="2" FontSize="15">-></Button>
+
+            <Button Grid.Column="4" FontSize="15">Leen</Button>
+
+            <TextBlock Grid.Column="6" FontSize="15">Boek een, s. Smit, 1981</TextBlock>
+        </Grid>
+        
+        <DataGrid Grid.Row="8" ItemsSource="{Binding Leening}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Boek" Width="SizeToCells" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Boek.Tietel}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                <DataGridTemplateColumn Header="Uit" Width="SizeToCells" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DatumUit.Date}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="In" Width="SizeToCells" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding DatumIn}" Visibility="{Binding BoekIsIn, Converter={StaticResource CheckedToVisibility}, Mode=OneWay}" />
+                                <Button Content="{Binding DatumTerugVerwag.Date, Mode=OneWay}" Visibility="{Binding BoekIsIn, Converter={StaticResource CheckedToVisibilityInvert}, Mode=OneWay}" Background="#FFDE2222" >
+                                    <Button.Style>
+                                        <Style  TargetType="Button">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding BoekIsLaat, Mode=OneWay}" Value="True">
+                                                    <Setter Property="Background" Value="Red"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding BoekIsLaat, Mode=OneWay}" Value="False">
+                                                    <Setter Property="Background" Value="Green"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
