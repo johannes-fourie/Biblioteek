@@ -8,5 +8,6 @@ namespace Biblioteek
 {
     public class KatalogusViewModel
     {
+
     }
 }
