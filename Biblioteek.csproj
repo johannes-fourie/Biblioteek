@@ -81,9 +81,12 @@
     </Compile>
     <Compile Include="CheckedToVisibilityInvert.cs" />
     <Compile Include="CheckedToVisibility.cs" />
+    <Compile Include="Katalogus\AddBoekData.cs" />
+    <Compile Include="Katalogus\AddBoekView.cs" />
     <Compile Include="Katalogus\Katalogus.xaml.cs">
       <DependentUpon>Katalogus.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Katalogus\KatalogusModel.cs" />
     <Compile Include="Katalogus\KatalogusViewModel.cs" />
     <Compile Include="Leen\Leen.xaml.cs">
       <DependentUpon>Leen.xaml</DependentUpon>
@@ -98,6 +101,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Oorsig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StyleDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Biblioteek"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="1000">
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,9 +15,11 @@
             <local:CheckedToVisibility x:Key="CheckedToVisibility"/>
         </ResourceDictionary>
     </UserControl.Resources>
+
     <UserControl.DataContext>
         <local:KatalogusViewModel/>
     </UserControl.DataContext>
+
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -40,6 +43,7 @@
                 </RadioButton>
             </StackPanel>
 
+            <!--__________________________________ ADD ___________________________________________________ -->
             <Grid Grid.Row="4" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=AddButton}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"/>
@@ -49,58 +53,90 @@
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="5"/>
                     <RowDefinition Height="25"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
-                
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="5"/>
                     <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Tietel" VerticalAlignment="Center" FontSize="15"/>
-                <TextBox Grid.Column="2" Grid.Row="0" VerticalContentAlignment="Center" FontSize="15"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Titel" VerticalAlignment="Center" FontSize="15"/>
+                <TextBox Grid.Column="2" Grid.Row="0" VerticalContentAlignment="Center" FontSize="15" Text="{Binding AddBoek.Tietel}"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Skrywer" VerticalAlignment="Center" FontSize="15"/>
-                <TextBox Grid.Column="2" Grid.Row="2" VerticalContentAlignment="Center" FontSize="15"/>
+                <TextBox Grid.Column="2" Grid.Row="2" VerticalContentAlignment="Center" FontSize="15" Text="{Binding AddBoek.Skrywer}"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="4" Text="Nommer" VerticalAlignment="Center" FontSize="15"/>
-                <TextBox Grid.Column="2" Grid.Row="4" VerticalContentAlignment="Center" FontSize="15"/>
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="Ouderdoms groep" VerticalAlignment="Center" FontSize="15"/>
+                <StackPanel Grid.Column="2" Grid.Row="4" Orientation="Horizontal">
+                    <RadioButton GroupName="OuderdomsGroep"  Style="{StaticResource {x:Type ToggleButton}}" Name="Kleuter" IsChecked="True" FontSize="15" Margin="0,0,5,0">
+                        <TextBlock Text="Kleuter"/>
+                    </RadioButton>
+                    <RadioButton GroupName="OuderdomsGroep" Style="{StaticResource {x:Type ToggleButton}}" Name="Tiener" FontSize="15">
+                        <TextBlock Text="Tiener"/>
+                    </RadioButton>
+                </StackPanel>
 
-                <Button Grid.Row="6" Width="25" HorizontalAlignment="Left">
+
+                <TextBlock Grid.Column="0" Grid.Row="6" Text="Genre" VerticalAlignment="Center" FontSize="15"/>
+                <StackPanel Grid.Column="2" Grid.Row="6" Orientation="Horizontal">
+                    <RadioButton GroupName="Genre" FontSize="15" Style="{StaticResource {x:Type ToggleButton}}" Name="Fiksie" IsChecked="True" Margin="0,0,5,0">
+                        Fiksie
+                    </RadioButton>
+                    <RadioButton GroupName="Genre" FontSize="15" Style="{StaticResource {x:Type ToggleButton}}" Name="NieFiksie">
+                        Nie-fiksie
+                    </RadioButton>
+                </StackPanel>
+
+                <TextBlock Grid.Column="0" Grid.Row="8" Text="Nommer" VerticalAlignment="Center" FontSize="15"/>
+                <Grid Grid.Column="2" Grid.Row="8" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" MinWidth="50" VerticalContentAlignment="Center" FontSize="15" Margin="0,0,5,0" Text="{Binding AddBoek.Jaar}" />
+                    <TextBox Grid.Column="1" VerticalContentAlignment="Center" FontSize="15" Text="{Binding AddBoek.Nommer}" />
+                </Grid>
+
+                <Button Grid.Row="10" Width="25" HorizontalAlignment="Left" Command="{Binding AddBoek.AddBoekCommand}">
                     <ContentControl Content="{StaticResource AddIcon}" VerticalAlignment="Center" />
                 </Button>
             </Grid>
 
-                <Grid Grid.Row="4" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=SearchButton}"  >
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="5"/>
-                        <RowDefinition Height="25"/>
-                    </Grid.RowDefinitions>
+            <!--__________________________________ Soek ___________________________________________________ -->
+            <Grid Grid.Row="4" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=SearchButton}"  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="5"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                    <ComboBox Grid.Column="0" FontSize="15" Width="125" VerticalContentAlignment="Center" >
-                        <ComboBoxItem IsSelected="True" >Soek volgens</ComboBoxItem>
-                        <ComboBoxItem>Nommer</ComboBoxItem>
-                        <ComboBoxItem>Tietel</ComboBoxItem>
-                        <ComboBoxItem>Skrywer</ComboBoxItem>
-                        <ComboBoxItem>Query</ComboBoxItem>
-                    </ComboBox>
+                <ComboBox Grid.Column="0" FontSize="15" Width="125" VerticalContentAlignment="Center" >
+                    <ComboBoxItem IsSelected="True" >Soek volgens</ComboBoxItem>
+                    <ComboBoxItem>Nommer</ComboBoxItem>
+                    <ComboBoxItem>Tietel</ComboBoxItem>
+                    <ComboBoxItem>Skrywer</ComboBoxItem>
+                    <ComboBoxItem>Query</ComboBoxItem>
+                </ComboBox>
 
-                    <TextBox Grid.Column="2" FontSize="15" VerticalContentAlignment="Center"/>
+                <TextBox Grid.Column="2" FontSize="15" VerticalContentAlignment="Center"/>
 
-                    <Button Grid.Row="2" Width="25" Margin="0,0,5,0" HorizontalAlignment="Left">
-                        <ContentControl Content="{StaticResource SearchIcon}" VerticalAlignment="Center" />
-                    </Button>
+                <Button Grid.Row="2" Width="25" Margin="0,0,5,0" HorizontalAlignment="Left">
+                    <ContentControl Content="{StaticResource SearchIcon}" VerticalAlignment="Center" />
+                </Button>
+            </Grid >
 
-                </Grid >
-
-                <DataGrid Grid.Row="6" AutoGenerateColumns="False">
+            <DataGrid Grid.Row="6" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Tietel" Width="SizeToCells" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>

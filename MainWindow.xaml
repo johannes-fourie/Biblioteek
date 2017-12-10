@@ -7,7 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
-        <local:CheckedToVisibility x:Key="CheckedToVisibility"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="IconDictionary.xaml" />
+                <ResourceDictionary Source="TextDictionary.xaml" />
+                <ResourceDictionary Source="StyleDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:CheckedToVisibility x:Key="CheckedToVisibility"/>
+        </ResourceDictionary>
     </Window.Resources>
     <Grid Margin="5">
         <Grid.RowDefinitions>
@@ -28,9 +35,11 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <RadioButton Name="btnOorsig" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu" IsChecked="True">Oorsig</RadioButton>
+            <RadioButton Name="btnOorsig"  Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu" IsChecked="True">
+                <TextBlock Style="{StaticResource KategoryButton}" Text="{StaticResource Oorsig}"/>
+            </RadioButton>
             <RadioButton Name="btnLeen" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu">Neem uit</RadioButton>
-            <RadioButton Name="btnKatalogis" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu">Katalogis</RadioButton>
+            <RadioButton Name="btnKatalogis" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu">Katalogus</RadioButton>
             <RadioButton Name="btnLeerder" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu">Leerders</RadioButton>
         </Grid>
 
