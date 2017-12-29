@@ -1,97 +1,69 @@
-﻿using System;
+﻿using Biblioteek.Services;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
-namespace Biblioteek
+namespace Biblioteek.Katalogus
 {
     public class AddBoekView : INotifyPropertyChanged
     {
-        private AddBoekData _data = new AddBoekData();
+        public IAddBoekModel AddBoekModel { get; set; }
 
         public AddBoekView()
         {
             this.AddBoekCommand = new AddBoekICommand(this);
-
-            _data = new AddBoekData()
-            {
-                Jaar = (DateTime.Now.Year % 1000) % 100
-            };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         public AddBoekICommand AddBoekCommand { get; set; }
+
+        private string genre;
 
         public string Genre
         {
-            get => _data.Genre;
+            get => this.genre;
 
             set
             {
-                _data.Genre = value;
+                this.genre = value;
                 NotifyPropertyChanged();
             }
         }
+
+        private int jaar;
 
         public int Jaar
         {
-            get => _data.Jaar;
+            get => this.jaar;
 
             set
             {
-                _data.Jaar = value;
+                this.jaar = value;
                 NotifyPropertyChanged();
             }
         }
+
+        private int nommer;
 
         public int Nommer
         {
-            get => _data.Nommer;
+            get => this.nommer;
 
             set
             {
-                _data.Nommer = value;
+                this.nommer = value;
                 NotifyPropertyChanged();
             }
         }
 
-        public string OurderdomsGroep
-        {
-            get => _data.OurderdomsGroep;
-
-            set
-            {
-                _data.OurderdomsGroep = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public string Skrywer
-        {
-            get => _data.Skrywer;
-
-            set
-            {
-                _data.Skrywer = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public string Tietel
-        {
-            get => _data.Tietel;
-
-            set
-            {
-                _data.Tietel = value;
-                NotifyPropertyChanged();
-            }
-        }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
         public class AddBoekICommand : ICommand
         {
             private AddBoekView _boekView;
@@ -103,13 +75,17 @@ namespace Biblioteek
             }
 
             public event EventHandler CanExecuteChanged;
+
             public bool CanExecute(object parameter)
             {
+                return true;
+                /*
                 return !string.IsNullOrWhiteSpace(_boekView.Tietel)
                     && !string.IsNullOrWhiteSpace(_boekView.Skrywer)
                     && _boekView.Nommer > 0
                     && _boekView.Jaar > 0;
-            }
+    */        
+    }
 
             public void Execute(object parameter)
             {

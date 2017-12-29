@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Biblioteek"
+        xmlns:katalogus="clr-namespace:Biblioteek.Katalogus"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
@@ -16,6 +17,11 @@
             <local:CheckedToVisibility x:Key="CheckedToVisibility"/>
         </ResourceDictionary>
     </Window.Resources>
+
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -35,18 +41,17 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <RadioButton Name="btnOorsig"  Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu" IsChecked="True">
+            <RadioButton Name="btnOorsig"  Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu" >
                 <TextBlock Style="{StaticResource KategoryButton}" Text="{StaticResource Oorsig}"/>
             </RadioButton>
             <RadioButton Name="btnLeen" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu">Neem uit</RadioButton>
-            <RadioButton Name="btnKatalogis" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu">Katalogus</RadioButton>
+            <RadioButton Name="btnKatalogis" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="4" IsChecked="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu">Katalogus</RadioButton>
             <RadioButton Name="btnLeerder" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu">Leerders</RadioButton>
         </Grid>
 
-        <local:Katalogus Grid.Row="1" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=btnKatalogis}"/>
+        <katalogus:KatalogusView Grid.Row="1" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=btnKatalogis}" />
         <local:Leen Grid.Row="1" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=btnLeen}"/>
         <local:Oorsig Grid.Row="1" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=btnOorsig}"/>
-        <local:Leerder Grid.Row="1" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=btnLeerder}"/>
-        
+        <local:Leerder Grid.Row="1" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=btnLeerder}"/>        
     </Grid>
 </Window>

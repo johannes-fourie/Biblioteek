@@ -1,10 +1,12 @@
-﻿<UserControl x:Class="Biblioteek.Katalogus"
+﻿<UserControl x:Class="Biblioteek.Katalogus.KatalogusView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Biblioteek"
+             xmlns:katalogus="clr-namespace:Biblioteek.Katalogus"
              mc:Ignorable="d" 
+             DataContext="{StaticResource AddBoekView}"
              d:DesignHeight="300" d:DesignWidth="1000">
 
     <UserControl.Resources>
@@ -15,10 +17,6 @@
             <local:CheckedToVisibility x:Key="CheckedToVisibility"/>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <UserControl.DataContext>
-        <local:KatalogusViewModel/>
-    </UserControl.DataContext>
 
     <Grid>
         <Grid>
@@ -35,16 +33,16 @@
             <TextBlock FontSize="40" Text="Katalogus"/>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <RadioButton Name="SearchButton" Width="25" Style="{StaticResource {x:Type ToggleButton}}" GroupName="Action" IsChecked="True" Margin="0,0,5,0">
+                <RadioButton Name="SearchButton" Width="25" Style="{StaticResource {x:Type ToggleButton}}" GroupName="Action" Margin="0,0,5,0">
                     <ContentControl Content="{StaticResource SearchIcon}" VerticalAlignment="Center" />
                 </RadioButton>
-                <RadioButton Name="AddButton" Width="25" Style="{StaticResource {x:Type ToggleButton}}"  GroupName="Action" >
+                <RadioButton Name="AddButton" Width="25" Style="{StaticResource {x:Type ToggleButton}}"  GroupName="Action" IsChecked="True"  >
                     <ContentControl Content="{StaticResource AddIcon}" VerticalAlignment="Center" />
                 </RadioButton>
             </StackPanel>
 
             <!--__________________________________ ADD ___________________________________________________ -->
-            <Grid Grid.Row="4" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=AddButton}">
+            <Grid Grid.Row="4" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=AddButton}" DataContext="{Binding AddBoek}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="5"/>
@@ -81,7 +79,6 @@
                     </RadioButton>
                 </StackPanel>
 
-
                 <TextBlock Grid.Column="0" Grid.Row="6" Text="Genre" VerticalAlignment="Center" FontSize="15"/>
                 <StackPanel Grid.Column="2" Grid.Row="6" Orientation="Horizontal">
                     <RadioButton GroupName="Genre" FontSize="15" Style="{StaticResource {x:Type ToggleButton}}" Name="Fiksie" IsChecked="True" Margin="0,0,5,0">
@@ -102,7 +99,7 @@
                     <TextBox Grid.Column="1" VerticalContentAlignment="Center" FontSize="15" Text="{Binding AddBoek.Nommer}" />
                 </Grid>
 
-                <Button Grid.Row="10" Width="25" HorizontalAlignment="Left" Command="{Binding AddBoek.AddBoekCommand}">
+                <Button Grid.Row="10" Width="55" HorizontalAlignment="Left" Command="{Binding AddBoek.AddBoekCommand}">
                     <ContentControl Content="{StaticResource AddIcon}" VerticalAlignment="Center" />
                 </Button>
             </Grid>
@@ -131,7 +128,7 @@
 
                 <TextBox Grid.Column="2" FontSize="15" VerticalContentAlignment="Center"/>
 
-                <Button Grid.Row="2" Width="25" Margin="0,0,5,0" HorizontalAlignment="Left">
+                <Button Grid.Row="2" Width="55" Margin="0,0,5,0" HorizontalAlignment="Left">
                     <ContentControl Content="{StaticResource SearchIcon}" VerticalAlignment="Center" />
                 </Button>
             </Grid >

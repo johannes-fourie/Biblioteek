@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Biblioteek
+namespace Biblioteek.Katalogus
 {
     public class KatalogusModel
     {
-        public void AddBoek(AddBoekData data )
+        public void AddBoek(AddBoekModel data )
         {
 
         }

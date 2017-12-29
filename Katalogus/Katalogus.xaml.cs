@@ -12,15 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity.Attributes;
 
-namespace Biblioteek
+namespace Biblioteek.Katalogus
 {
     /// <summary>
-    /// Interaction logic for Katalogus.xaml
+    /// Interaction logic for KatalogusView.xaml
     /// </summary>
-    public partial class Katalogus : UserControl
+    public partial class KatalogusView : UserControl
     {
-        public Katalogus()
+        public KatalogusView()
         {
             InitializeComponent();
         }
