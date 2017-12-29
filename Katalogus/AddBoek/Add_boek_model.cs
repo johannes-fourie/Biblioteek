@@ -4,14 +4,14 @@ using System;
 
 namespace Biblioteek.Katalogus
 {
-    public class AddBoekModel : IAddBoekModel
+    public class Add_boek_model : IAdd_boek_model
     {
-        public AddBoekModel()
+        public Add_boek_model()
         { }
 
         private int CurrentJaar() =>  (DateTime.Now.Year % 1000) % 100;
 
-        public BoekNommer NextBoekNommer()
+        public BoekNommer Next_boek_nommer()
         {
             var lastNommer = DatabaseAccess.LastBoekNommer();
 

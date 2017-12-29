@@ -80,12 +80,21 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Exceptions\MissingService.cs" />
-    <Compile Include="Katalogus\IAddBoekModel.cs" />
+    <Compile Include="Katalogus\AddBoek\AddBoek.xaml.cs">
+      <DependentUpon>AddBoek.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Katalogus\AddBoek\IAddBoekModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Services\IDatabaseAccess.cs" />
     <Compile Include="Types\BoekNommer.cs" />
+    <Compile Include="Types\Genres.cs" />
+    <Compile Include="Types\OuderdomsGroepe.cs" />
     <Compile Include="Types\ServiceName.cs" />
     <Page Include="IconDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Katalogus\AddBoek\AddBoek.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -112,8 +121,8 @@
     <Compile Include="CheckedToVisibilityInvert.cs" />
     <Compile Include="CheckedToVisibility.cs" />
     <Compile Include="Services\DatabaseAccess.cs" />
-    <Compile Include="Katalogus\AddBoekModel.cs" />
-    <Compile Include="Katalogus\AddBoekView.cs" />
+    <Compile Include="Katalogus\AddBoek\Add_boek_model.cs" />
+    <Compile Include="Katalogus\AddBoek\AddBoekViewModel.cs" />
     <Compile Include="Katalogus\Katalogus.xaml.cs">
       <DependentUpon>Katalogus.xaml</DependentUpon>
     </Compile>
@@ -174,5 +183,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

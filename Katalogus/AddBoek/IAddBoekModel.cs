@@ -2,9 +2,9 @@
 
 namespace Biblioteek.Katalogus
 {
-    public interface IAddBoekModel
+    public interface IAdd_boek_model
     {
-        BoekNommer NextBoekNommer();
+        BoekNommer Next_boek_nommer();
 
 
     }

@@ -5,7 +5,7 @@ namespace Biblioteek.Katalogus
 {
     public class KatalogusViewModel : INotifyPropertyChanged
     {
-        private AddBoekView addBoek;
+        private AddBoekViewModel addBoek;
         private KatalogusModel model;
 
         public KatalogusViewModel()
@@ -14,7 +14,7 @@ namespace Biblioteek.Katalogus
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public AddBoekView AddBoek
+        public AddBoekViewModel AddBoek
         {
             get => this.addBoek;
 

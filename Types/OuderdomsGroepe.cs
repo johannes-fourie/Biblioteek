@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Biblioteek.Katalogus
+namespace Biblioteek.Types
 {
-    public class KatalogusModel
+    public enum OuderdomsGroepe
     {
+        Kleuter,
+        Tiener
     }
 }

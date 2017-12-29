@@ -8,8 +8,8 @@
     <Application.Resources>
         <services:DatabaseAccess x:Key="DatabaseAcess"/>
 
-        <katalogus:AddBoekModel x:Key="AddBoekModel" DatabaseAccess="{StaticResource DatabaseAcess}"/>
-        <katalogus:AddBoekView x:Key="AddBoekView" AddBoekModel="{StaticResource AddBoekModel}"/>
+        <katalogus:Add_boek_model x:Key="AddBoekModel" DatabaseAccess="{StaticResource DatabaseAcess}"/>
+        <katalogus:AddBoekViewModel x:Key="AddBoekViewModel" Add_boek_model="{StaticResource AddBoekModel}"/>
 
     </Application.Resources>
 </Application>
