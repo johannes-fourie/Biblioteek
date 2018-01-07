@@ -3,11 +3,9 @@
                     xmlns:local="clr-namespace:Biblioteek">
 
     <Style x:Key="BaseText">
-        
     </Style>
 
     <Style x:Key="KategoryButton" BasedOn="{StaticResource BaseText}" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontSize" Value="20" />
     </Style>
-    
 </ResourceDictionary>

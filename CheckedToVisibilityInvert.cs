@@ -13,7 +13,7 @@ namespace Biblioteek
                 throw new InvalidCastException("CheckedToVisibility can only convert bool to Visibility");
 
             var isChecked = (bool)value;
-                       
+
             return !isChecked ? Visibility.Visible : Visibility.Collapsed;
         }
 

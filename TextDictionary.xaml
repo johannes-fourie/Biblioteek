@@ -7,5 +7,4 @@
     <system:String x:Key="NeemUit">Neem uit</system:String>
     <system:String x:Key="Katalogus">Katalogus</system:String>
     <system:String x:Key="Leerders">Leerders</system:String>
-
 </ResourceDictionary>

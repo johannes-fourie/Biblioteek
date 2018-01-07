@@ -1,11 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Biblioteek.Types
 {
+    public static class ServiceNameExtentions
+    {
+        public static ServiceName ServiceName(this string serviceName)
+        {
+            return new Types.ServiceName(serviceName);
+        }
+
+        public static ServiceName ServiceName(this Type serviceType)
+        {
+            return new Types.ServiceName(serviceType.FullName);
+        }
+    }
+
     public class ServiceName
     {
         public ServiceName(string name)
@@ -21,19 +30,6 @@ namespace Biblioteek.Types
         public static ServiceName New(string name)
         {
             return new ServiceName(name);
-        }
-    }
-
-    public static class ServiceNameExtentions
-    {
-        public static ServiceName ServiceName(this string serviceName)
-        {
-            return new Types.ServiceName(serviceName);
-        }
-
-        public static ServiceName ServiceName(this Type serviceType)
-        {
-            return new Types.ServiceName(serviceType.FullName);
         }
     }
 }

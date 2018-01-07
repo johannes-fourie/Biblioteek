@@ -1,14 +1,13 @@
 ﻿using Biblioteek.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Biblioteek.Services
 {
     public interface IDatabaseAccess
     {
         BoekNommer LastBoekNommer();
+
+        AddResult AddBoek(BoekInformation boekInformation);
+
+        Maybe<BoekInformation> GetBoek(BoekNommer boekNommer);
     }
 }

@@ -1,11 +1,7 @@
-﻿using Biblioteek.Types;
-using System.Collections.Generic;
-
-namespace Biblioteek
+﻿namespace Biblioteek
 {
     public class MainViewModel
     {
-
         public MainViewModel()
         {
         }

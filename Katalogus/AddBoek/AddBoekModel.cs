@@ -4,14 +4,19 @@ using System;
 
 namespace Biblioteek.Katalogus
 {
-    public class Add_boek_model : IAdd_boek_model
+    public class AddBoekModel : IAddBoekModel
     {
-        public Add_boek_model()
+        public AddBoekModel()
         { }
 
-        private int CurrentJaar() =>  (DateTime.Now.Year % 1000) % 100;
+        public IDatabaseAccess DatabaseAccess { get; set; }
 
-        public BoekNommer Next_boek_nommer()
+        public AddResult AddBoek(BoekInformation boekInformation)
+        {
+            return DatabaseAccess.AddBoek(boekInformation);
+        }
+
+        public BoekNommer NextBoekNommer()
         {
             var lastNommer = DatabaseAccess.LastBoekNommer();
 
@@ -22,6 +27,6 @@ namespace Biblioteek.Katalogus
             return nextNommer;
         }
 
-        public IDatabaseAccess DatabaseAccess { get; set; }
+        private int CurrentJaar() => (DateTime.Now.Year % 1000) % 100;
     }
 }

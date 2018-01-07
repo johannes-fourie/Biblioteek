@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
@@ -84,12 +86,23 @@
       <DependentUpon>AddBoek.xaml</DependentUpon>
     </Compile>
     <Compile Include="Katalogus\AddBoek\IAddBoekModel.cs" />
+    <Compile Include="Katalogus\ListBoeke\IListBoekModel.cs" />
+    <Compile Include="Katalogus\ListBoeke\ListBoeke.xaml.cs">
+      <DependentUpon>ListBoeke.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Katalogus\ListBoeke\ListBoekModel.cs" />
+    <Compile Include="Katalogus\ListBoeke\ListBoekViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Services\IDatabaseAccess.cs" />
+    <Compile Include="Types\BoekInformation.cs" />
     <Compile Include="Types\BoekNommer.cs" />
     <Compile Include="Types\Genres.cs" />
+    <Compile Include="Types\Maybe.cs" />
     <Compile Include="Types\OuderdomsGroepe.cs" />
+    <Compile Include="Types\Result.cs" />
     <Compile Include="Types\ServiceName.cs" />
+    <Compile Include="Types\Skrywer.cs" />
+    <Compile Include="Types\Tietel.cs" />
     <Page Include="IconDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -99,6 +112,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Katalogus\Katalogus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Katalogus\ListBoeke\ListBoeke.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,7 +138,7 @@
     <Compile Include="CheckedToVisibilityInvert.cs" />
     <Compile Include="CheckedToVisibility.cs" />
     <Compile Include="Services\DatabaseAccess.cs" />
-    <Compile Include="Katalogus\AddBoek\Add_boek_model.cs" />
+    <Compile Include="Katalogus\AddBoek\AddBoekModel.cs" />
     <Compile Include="Katalogus\AddBoek\AddBoekViewModel.cs" />
     <Compile Include="Katalogus\Katalogus.xaml.cs">
       <DependentUpon>Katalogus.xaml</DependentUpon>

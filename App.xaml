@@ -6,10 +6,12 @@
              xmlns:services="clr-namespace:Biblioteek.Services"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <services:DatabaseAccess x:Key="DatabaseAcess"/>
+        <services:DatabaseAccess x:Key="DatabaseAcess" />
 
-        <katalogus:Add_boek_model x:Key="AddBoekModel" DatabaseAccess="{StaticResource DatabaseAcess}"/>
-        <katalogus:AddBoekViewModel x:Key="AddBoekViewModel" Add_boek_model="{StaticResource AddBoekModel}"/>
+        <katalogus:AddBoekModel x:Key="AddBoekModel" DatabaseAccess="{StaticResource DatabaseAcess}" />
+        <katalogus:AddBoekViewModel x:Key="AddBoekViewModel" AddBoekModel="{StaticResource AddBoekModel}" />
 
+        <katalogus:ListBoekModel x:Key="ListBoekModel" DatabaseAccess="{StaticResource DatabaseAcess}" />
+        <katalogus:ListBoekViewModel x:Key="ListBoekViewModel" ListBoekModel="{StaticResource ListBoekModel}"/>
     </Application.Resources>
 </Application>
