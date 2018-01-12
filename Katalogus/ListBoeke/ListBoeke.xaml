@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Biblioteek.Katalogus.ListBoeke"
+﻿<UserControl x:Name="userControl" x:Class="Biblioteek.Katalogus.ListBoeke"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,42 +6,10 @@
              xmlns:local="clr-namespace:Biblioteek.Katalogus"
              mc:Ignorable="d" 
              DataContext="{StaticResource ListBoekViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300" Initialized="UserControl_Initialized">
+             d:DesignHeight="300" 
+             d:DesignWidth="300" 
+             Initialized="UserControl_Initialized">
     <Grid>
-        <DataGrid  AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Tietel" Width="SizeToCells" IsReadOnly="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTemplateColumn Header="Skrywer" Width="SizeToCells" IsReadOnly="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTemplateColumn Header="Uitgeneem deur" Width="SizeToCells" IsReadOnly="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTemplateColumn Header="Ingee datum" Width="SizeToCells" IsReadOnly="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <ListBox ItemsSource="{Binding Boeke}"/>
     </Grid>
 </UserControl>

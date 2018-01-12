@@ -16,6 +16,11 @@ namespace Biblioteek.Katalogus
             return DatabaseAccess.AddBoek(boekInformation);
         }
 
+        public void Initialize()
+        {
+
+        }
+
         public BoekNommer NextBoekNommer()
         {
             var lastNommer = DatabaseAccess.LastBoekNommer();

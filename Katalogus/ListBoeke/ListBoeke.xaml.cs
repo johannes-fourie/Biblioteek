@@ -26,27 +26,9 @@ namespace Biblioteek.Katalogus
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty AddToListProperty =
-          DependencyProperty.Register(
-              name: "AddToList",
-              propertyType: typeof(BoekNommer),
-              ownerType: typeof(ListBoeke));
-
-        public BoekNommer AddToList
-        {
-            get => (BoekNommer)GetValue(AddToListProperty);
-
-            set => SetValue(AddToListProperty, value);
-        }
-
         private void UserControl_Initialized(object sender, EventArgs e)
         {
             (this.DataContext as ListBoekViewModel).Initialize();
-
-            this.SetBinding(
-                dp: AddToListProperty,
-                binding: new Binding("AddToList") { Mode = BindingMode.TwoWay });
-
         }
     }
 }

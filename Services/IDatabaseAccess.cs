@@ -1,4 +1,5 @@
 ﻿using Biblioteek.Types;
+using System;
 
 namespace Biblioteek.Services
 {
@@ -9,5 +10,7 @@ namespace Biblioteek.Services
         AddResult AddBoek(BoekInformation boekInformation);
 
         Maybe<BoekInformation> GetBoek(BoekNommer boekNommer);
+
+        event EventHandler<BoekNommer> BoekAdded;
     }
 }

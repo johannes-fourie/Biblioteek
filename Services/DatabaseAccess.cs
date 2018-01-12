@@ -7,10 +7,13 @@ namespace Biblioteek.Services
 {
     public class DatabaseAccess : IDatabaseAccess
     {
+        public event EventHandler<BoekNommer> BoekAdded;
+
         public DatabaseAccess()
         { }
 
         private List<BoekInformation> boeke = new List<BoekInformation>();
+        private BoekNommer lastAddedBoekNommer;
 
         public BoekNommer LastBoekNommer()
         {
@@ -29,6 +32,7 @@ namespace Biblioteek.Services
             {
                 this.boeke.Add(boekInfo);
                 result = AddResult.AddSuccess;
+                this.BoekAdded?.Invoke(this, boekInfo.BoekNommer);
             }
 
             return result;

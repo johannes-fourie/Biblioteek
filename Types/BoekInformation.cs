@@ -21,5 +21,10 @@
         public OuderdomsGroepe OuderdomsGroep { get; }
         public Skrywer Skrywer { get; }
         public Tietel Tietel { get; }
+
+        public override string ToString()
+        {
+            return $@"{this.Tietel}; {this.Skrywer}; {this.BoekNommer}";
+        }
     }
 }

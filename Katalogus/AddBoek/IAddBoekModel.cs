@@ -7,5 +7,7 @@ namespace Biblioteek.Katalogus
         BoekNommer NextBoekNommer();
 
         AddResult AddBoek(BoekInformation boekInformation);
+
+        void Initialize();
     }
 }

@@ -1,29 +1,29 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Biblioteek.Services;
+using Biblioteek.Types;
 
 namespace Biblioteek.Katalogus
 {
     public class KatalogusViewModel : INotifyPropertyChanged
     {
-        private AddBoekViewModel addBoek;
-        private KatalogusModel model;
+        private BoekNommer lastAddedBoekNommer;
 
         public KatalogusViewModel()
         {
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public AddBoekViewModel AddBoek
+        public BoekNommer LastAddedBoekNommerO
         {
-            get => this.addBoek;
-
+            get => this.lastAddedBoekNommer;
             set
             {
-                this.addBoek = value;
-                NotifyPropertyChanged();
+                this.lastAddedBoekNommer = value;
+                this.NotifyPropertyChanged();
             }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {

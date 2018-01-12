@@ -159,6 +159,7 @@ namespace Biblioteek.Katalogus
 
         public void Initialize()
         {
+            this.AddBoekModel.Initialize();
             var next_boek_nommer = AddBoekModel.NextBoekNommer();
             this.Jaar = next_boek_nommer.Jaar;
             this.Nommer = next_boek_nommer.Nommer;

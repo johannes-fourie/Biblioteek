@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Biblioteek"
              xmlns:katalogus="clr-namespace:Biblioteek.Katalogus"
              mc:Ignorable="d"
-             DataContext="{StaticResource AddBoekViewModel}"
+             DataContext="{StaticResource KatalogusViewModel}"
              d:DesignHeight="300" d:DesignWidth="1000">
 
     <UserControl.Resources>
@@ -29,7 +29,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock FontSize="40" Text="Katalogus" />
+        <StackPanel>
+            <TextBlock FontSize="40" Text="Katalogus" />
+        </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <RadioButton Name="SearchButton" Width="25" Style="{StaticResource {x:Type ToggleButton}}" GroupName="Action" Margin="0,0,5,0">
@@ -41,7 +43,7 @@
         </StackPanel>
 
         <!--__________________________________ ADD ___________________________________________________ -->
-        <katalogus:AddBoek Grid.Row="4" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=AddButton}" />
+        <katalogus:AddBoek x:Name="AddBoek" Grid.Row="4" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=AddButton}"/>
 
         <!--__________________________________ Soek ___________________________________________________ -->
         <Grid Grid.Row="4" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=SearchButton}">
@@ -72,7 +74,7 @@
             </Button>
         </Grid>
 
-        <!--__________________________________ List ___________________________________________________ -->
-        <katalogus:ListBoeke Grid.Row="6"/>
+        <!--__________________________________ List ___________________________________________________-->
+        <katalogus:ListBoeke Grid.Row="6" />
     </Grid>
 </UserControl>

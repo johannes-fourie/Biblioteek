@@ -2,7 +2,6 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace Biblioteek.Katalogus
 {
@@ -16,23 +15,6 @@ namespace Biblioteek.Katalogus
         private void UserControl_Initialized(object sender, EventArgs e)
         {
             (this.DataContext as AddBoekViewModel).Initialize();
-
-            this.SetBinding(
-                dp: LastAddedBoekNommerProperty,
-                binding: new Binding("LastAddedBoekNommer") { Mode = BindingMode.TwoWay });
-        }
-
-        public static readonly DependencyProperty LastAddedBoekNommerProperty =
-            DependencyProperty.Register(
-                name: "LastAddedBoekNommer",
-                propertyType: typeof(BoekNommer),
-                ownerType: typeof(AddBoek));
-
-        public BoekNommer LastAddedBoekNommer
-        {
-            get => (BoekNommer)GetValue(LastAddedBoekNommerProperty);
-
-            set => SetValue(LastAddedBoekNommerProperty, value);
         }
     }
 }

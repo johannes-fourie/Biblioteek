@@ -4,19 +4,25 @@ namespace Biblioteek.Types
 {
     public struct Maybe<T>
     {
-        private readonly bool hasValue;
+        private readonly bool isSome;
         private readonly T value;
 
         public Maybe(T value)
         {
-            this.hasValue = true;
+            this.isSome = true;
             this.value = value;
         }
 
-        public bool HasValue => this.hasValue;
+        public bool IsSome => this.isSome;
 
-        public T Value => this.hasValue ? this.value : throw new InvalidOperationException();
+        public T Value => this.isSome ? this.value : throw new InvalidOperationException();
 
         public static implicit operator Maybe<T>(T value) => new Maybe<T>(value);
+
+        public Maybe<T> IfSome(Action<Maybe<T>> action)
+        {
+            action(this);
+            return this;
+        }
     }
 }

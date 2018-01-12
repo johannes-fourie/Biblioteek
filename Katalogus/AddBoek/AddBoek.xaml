@@ -6,7 +6,7 @@
              xmlns:katalogus="clr-namespace:Biblioteek.Katalogus"
              xmlns:local="clr-namespace:Biblioteek"
              mc:Ignorable="d"
-             DataContext="{StaticResource AddBoekViewModel}"             
+             DataContext="{StaticResource AddBoekViewModel}"   
              d:DesignHeight="300" d:DesignWidth="300" Initialized="UserControl_Initialized">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -81,6 +81,7 @@
                 <ContentControl Content="{StaticResource AddIcon}" VerticalAlignment="Center" />
             </Button>
             <TextBlock Text="{Binding LastBoekAdded}" FontSize="15" Margin="5,0,0,0" />
+            <TextBlock Text="{Binding LastAddedBoekNommer}" FontSize="15" Margin="5,0,0,0"/>
         </StackPanel>
     </Grid>
 </UserControl>

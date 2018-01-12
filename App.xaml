@@ -13,5 +13,7 @@
 
         <katalogus:ListBoekModel x:Key="ListBoekModel" DatabaseAccess="{StaticResource DatabaseAcess}" />
         <katalogus:ListBoekViewModel x:Key="ListBoekViewModel" ListBoekModel="{StaticResource ListBoekModel}"/>
+
+        <katalogus:KatalogusViewModel x:Key="KatalogusViewModel"/>
     </Application.Resources>
 </Application>

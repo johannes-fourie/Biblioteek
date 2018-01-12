@@ -103,6 +103,7 @@
     <Compile Include="Types\ServiceName.cs" />
     <Compile Include="Types\Skrywer.cs" />
     <Compile Include="Types\Tietel.cs" />
+    <Compile Include="Types\Value.cs" />
     <Page Include="IconDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

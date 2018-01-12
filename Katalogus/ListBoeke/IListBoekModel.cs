@@ -9,6 +9,10 @@ namespace Biblioteek.Katalogus
 {
     public interface IListBoekModel
     {
-        BoekInformation GetBoek(BoekNommer addToList);
+        Maybe<BoekInformation> GetBoek(BoekNommer addToList);
+
+        event EventHandler<BoekInformation> BoekAdded;
+
+        void Initialize();
     }
 }
