@@ -7,31 +7,24 @@ namespace Biblioteek.Services
 {
     public class DatabaseAccess : IDatabaseAccess
     {
-        public event EventHandler<BoekNommer> BoekAdded;
+        private List<BoekInformation> boeke = new List<BoekInformation>();
 
         public DatabaseAccess()
         { }
 
-        private List<BoekInformation> boeke = new List<BoekInformation>();
-        private BoekNommer lastAddedBoekNommer;
+        public event EventHandler<BoekNommer> BoekAdded;
 
-        public BoekNommer LastBoekNommer()
-        {
-            return boeke.LastOrDefault()?.BoekNommer
-                ?? new BoekNommer(
-                    jaar: (DateTime.Now.Year % 1000) % 100,
-                    nommer: 0);
-        }
+        public event EventHandler<BoekNommer> BoekUpdated;
 
-        public AddResult AddBoek(BoekInformation boekInfo)
+        public ActionResult AddBoek(BoekInformation boekInfo)
         {
-            AddResult result;
+            ActionResult result;
             if (this.boeke.Any(b => b.BoekNommer.Equals(boekInfo.BoekNommer)))
-                result = AddResult.AddFail;
+                result = ActionResult.Fail;
             else
             {
                 this.boeke.Add(boekInfo);
-                result = AddResult.AddSuccess;
+                result = ActionResult.Success;
                 this.BoekAdded?.Invoke(this, boekInfo.BoekNommer);
             }
 
@@ -41,6 +34,22 @@ namespace Biblioteek.Services
         public Maybe<BoekInformation> GetBoek(BoekNommer boekNommer)
         {
             return this.boeke.FirstOrDefault(b => b.BoekNommer == boekNommer) ?? default;
+        }
+
+        public BoekNommer LastBoekNommer()
+        {
+            return boeke.LastOrDefault()?.BoekNommer
+                ?? new BoekNommer(
+                    jaar: (DateTime.Now.Year % 1000) % 100,
+                    nommer: 0);
+        }
+
+        public ActionResult UpdateBoek(BoekInformation boekInformation)
+        {
+            this.boeke.Remove(this.boeke.First(b => b.BoekNommer == boekInformation.BoekNommer));
+            this.boeke.Insert(0, boekInformation);
+            this.BoekUpdated?.Invoke(this, boekInformation.BoekNommer);
+            return ActionResult.Success;
         }
     }
 }

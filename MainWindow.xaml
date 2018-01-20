@@ -42,7 +42,7 @@
             </Grid.ColumnDefinitions>
 
             <RadioButton Name="btnOorsig"  Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu">
-                <TextBlock Style="{StaticResource KategoryButton}" Text="{StaticResource Oorsig}" />
+                <TextBlock Text="{StaticResource Oorsig}" Style="{DynamicResource KategoryButton}" />
             </RadioButton>
             <RadioButton Name="btnLeen" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu">Neem uit</RadioButton>
             <RadioButton Name="btnKatalogis" FontSize="20" Style="{StaticResource {x:Type ToggleButton}}" Grid.Column="4" IsChecked="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" GroupName="Menu">Katalogus</RadioButton>

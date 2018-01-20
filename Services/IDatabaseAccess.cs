@@ -5,12 +5,16 @@ namespace Biblioteek.Services
 {
     public interface IDatabaseAccess
     {
-        BoekNommer LastBoekNommer();
+        event EventHandler<BoekNommer> BoekAdded;
 
-        AddResult AddBoek(BoekInformation boekInformation);
+        event EventHandler<BoekNommer> BoekUpdated;
+
+        ActionResult AddBoek(BoekInformation boekInformation);
 
         Maybe<BoekInformation> GetBoek(BoekNommer boekNommer);
 
-        event EventHandler<BoekNommer> BoekAdded;
+        BoekNommer LastBoekNommer();
+
+        ActionResult UpdateBoek(BoekInformation boekInformation);
     }
 }

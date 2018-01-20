@@ -2,10 +2,23 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Biblioteek">
 
-    <Style x:Key="BaseText">
+    <Style TargetType="TextBlock">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
-    <Style x:Key="KategoryButton" BasedOn="{StaticResource BaseText}" TargetType="TextBlock">
+    <Style TargetType="TextBox">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="KategoryButton" TargetType="TextBlock">
         <Setter Property="FontSize" Value="20" />
+    </Style>
+
+    <Style x:Key="SelectorButton" TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="Margin" Value="0,0,5,0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
     </Style>
 </ResourceDictionary>

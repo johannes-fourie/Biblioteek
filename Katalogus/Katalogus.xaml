@@ -7,12 +7,14 @@
              xmlns:katalogus="clr-namespace:Biblioteek.Katalogus"
              mc:Ignorable="d"
              DataContext="{StaticResource KatalogusViewModel}"
-             d:DesignHeight="300" d:DesignWidth="1000">
+             
+             d:DesignHeight="300" d:DesignWidth="1000" Initialized="UserControl_Initialized">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Biblioteek;component/IconDictionary.xaml" />
+                <ResourceDictionary Source="/Biblioteek;component/StyleDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <local:CheckedToVisibility x:Key="CheckedToVisibility" />
         </ResourceDictionary>
@@ -37,15 +39,21 @@
             <RadioButton Name="SearchButton" Width="25" Style="{StaticResource {x:Type ToggleButton}}" GroupName="Action" Margin="0,0,5,0">
                 <ContentControl Content="{StaticResource SearchIcon}" VerticalAlignment="Center" />
             </RadioButton>
-            <RadioButton Name="AddButton" Width="25" Style="{StaticResource {x:Type ToggleButton}}"  GroupName="Action" IsChecked="True">
+            <RadioButton Name="AddButton" Width="25" Style="{StaticResource {x:Type ToggleButton}}"  GroupName="Action" Margin="0,0,5,0" IsChecked="{Binding AddBoek}">
                 <ContentControl Content="{StaticResource AddIcon}" VerticalAlignment="Center" />
+            </RadioButton>
+            <RadioButton Name="EditButton" Width="25" Style="{StaticResource {x:Type ToggleButton}}"  GroupName="Action" Margin="0,0,5,0" IsChecked="{Binding EditBoek}" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=EditButton}">
+                <ContentControl Content="{StaticResource EditIcon}" VerticalAlignment="Center" />
             </RadioButton>
         </StackPanel>
 
         <!--__________________________________ ADD ___________________________________________________ -->
         <katalogus:AddBoek x:Name="AddBoek" Grid.Row="4" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=AddButton}"/>
 
-        <!--__________________________________ Soek ___________________________________________________ -->
+        <!--__________________________________ Edit __________________________________________________ -->
+        <katalogus:EditBoek x:Name="EditBoek" Grid.Row="4" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=EditButton}"/>
+
+        <!--__________________________________ Soek __________________________________________________ -->
         <Grid Grid.Row="4" Visibility="{Binding IsChecked, Converter={StaticResource CheckedToVisibility}, ElementName=SearchButton}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25" />

@@ -24,7 +24,7 @@
 
         public override string ToString()
         {
-            return $@"{this.Tietel}; {this.Skrywer}; {this.BoekNommer}";
+            return $@"[{this.BoekNommer}] {this.Tietel}; {this.Skrywer}; {this.Genre}; {this.OuderdomsGroep}";
         }
     }
 }

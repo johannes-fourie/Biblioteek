@@ -3,14 +3,14 @@ using Biblioteek.Types;
 
 namespace Biblioteek.Katalogus
 {
-    public interface IAddBoekModel
+    public interface IEditBoekModel
     {
         IDatabaseAccess DatabaseAccess { get; set; }
 
-        ActionResult AddBoek(BoekInformation boekInformation);
+        Maybe<BoekInformation> GetBoek(BoekNommer boekNommer);
 
         void Initialize();
 
-        BoekNommer NextBoekNommer();
+        void UpdateBoek(BoekInformation boekInformation);
     }
 }

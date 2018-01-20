@@ -7,9 +7,11 @@ namespace Biblioteek.Katalogus
     /// </summary>
     public partial class KatalogusView : UserControl
     {
-        public KatalogusView()
+        public KatalogusView() => InitializeComponent();
+
+        private void UserControl_Initialized(object sender, System.EventArgs e)
         {
-            InitializeComponent();
+            (this.DataContext as KatalogusViewModel).Initialize();
         }
     }
 }

@@ -1,21 +1,19 @@
-﻿<UserControl x:Class="Biblioteek.Katalogus.AddBoek"
+﻿<UserControl x:Class="Biblioteek.Katalogus.EditBoek"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:katalogus="clr-namespace:Biblioteek.Katalogus"
-             xmlns:local="clr-namespace:Biblioteek"
-             mc:Ignorable="d"
-             DataContext="{StaticResource AddBoekViewModel}"   
-             d:DesignHeight="300" d:DesignWidth="300" 
-             Initialized="UserControl_Initialized">
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Biblioteek.Katalogus"
+             DataContext="{StaticResource EditBoekViewModel}"
+             Initialized="UserControl_Initialized"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Biblioteek;component/IconDictionary.xaml" />
                 <ResourceDictionary Source="/Biblioteek;component/StyleDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <local:CheckedToVisibility x:Key="CheckedToVisibility" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -40,7 +38,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Text="Titel" />
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Tietel" />
         <TextBox Grid.Column="2" Grid.Row="0" Text="{Binding Tietel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Skrywer"/>
@@ -67,22 +65,13 @@
         </StackPanel>
 
         <TextBlock Grid.Column="0" Grid.Row="8" Text="Nommer" VerticalAlignment="Center" FontSize="15" />
-        <Grid Grid.Column="2" Grid.Row="8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" MinWidth="50" VerticalContentAlignment="Center" FontSize="15" Margin="0,0,5,0" Text="{Binding Jaar}" />
-            <TextBlock Grid.Column="1" Text="\" FontSize="15" Margin="0,0,5,0" />
-            <TextBox Grid.Column="2" VerticalContentAlignment="Center" FontSize="15" Text="{Binding Nommer}" />
-        </Grid>
+        <TextBlock Grid.Column="2" Grid.Row="8" Margin="0,0,5,0" Text="{Binding Nommer}" />
 
         <StackPanel Orientation="Horizontal" Grid.Row="10" Grid.ColumnSpan="3">
-            <Button Width="55" HorizontalAlignment="Left" Command="{Binding AddBoekCommand}">
-                <ContentControl Content="{StaticResource AddIcon}" VerticalAlignment="Center" />
+            <Button Width="55" HorizontalAlignment="Left" Command="{Binding UpdateBoekCommand}">
+                <ContentControl Content="{StaticResource EditIcon}" VerticalAlignment="Center" />
             </Button>
-            <TextBlock Margin="5,0,0,0" Text="{Binding BoekSummary}"/>
+            <TextBlock Text="{Binding BoekSummary}"/>
         </StackPanel>
     </Grid>
 </UserControl>

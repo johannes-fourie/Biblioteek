@@ -11,14 +11,13 @@ namespace Biblioteek.Katalogus
 
         public IDatabaseAccess DatabaseAccess { get; set; }
 
-        public AddResult AddBoek(BoekInformation boekInformation)
+        public ActionResult AddBoek(BoekInformation boekInformation)
         {
             return DatabaseAccess.AddBoek(boekInformation);
         }
 
         public void Initialize()
         {
-
         }
 
         public BoekNommer NextBoekNommer()

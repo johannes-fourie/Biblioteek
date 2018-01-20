@@ -86,6 +86,14 @@
       <DependentUpon>AddBoek.xaml</DependentUpon>
     </Compile>
     <Compile Include="Katalogus\AddBoek\IAddBoekModel.cs" />
+    <Compile Include="Katalogus\EditBoek\EditBoek.xaml.cs">
+      <DependentUpon>EditBoek.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Katalogus\EditBoek\EditBoekModel.cs" />
+    <Compile Include="Katalogus\EditBoek\EditBoekViewModel.cs" />
+    <Compile Include="Katalogus\EditBoek\IEditBoekModel.cs" />
+    <Compile Include="Katalogus\SignalEditBoek.cs" />
+    <Compile Include="Katalogus\ListBoeke\BoekViewModel.cs" />
     <Compile Include="Katalogus\ListBoeke\IListBoekModel.cs" />
     <Compile Include="Katalogus\ListBoeke\ListBoeke.xaml.cs">
       <DependentUpon>ListBoeke.xaml</DependentUpon>
@@ -94,12 +102,12 @@
     <Compile Include="Katalogus\ListBoeke\ListBoekViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Services\IDatabaseAccess.cs" />
+    <Compile Include="Types\ActionResult.cs" />
     <Compile Include="Types\BoekInformation.cs" />
     <Compile Include="Types\BoekNommer.cs" />
     <Compile Include="Types\Genres.cs" />
     <Compile Include="Types\Maybe.cs" />
     <Compile Include="Types\OuderdomsGroepe.cs" />
-    <Compile Include="Types\Result.cs" />
     <Compile Include="Types\ServiceName.cs" />
     <Compile Include="Types\Skrywer.cs" />
     <Compile Include="Types\Tietel.cs" />
@@ -109,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Katalogus\AddBoek\AddBoek.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Katalogus\EditBoek\EditBoek.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -12,11 +12,6 @@
 
         public int Nommer { get; }
 
-        public override string ToString()
-        {
-            return $@"{this.Jaar}\{this.Nommer}";
-        }
-
         public override bool Equals(object obj)
         {
             var objBoek = obj as BoekNommer;
@@ -25,5 +20,10 @@
         }
 
         public override int GetHashCode() => base.GetHashCode();
+
+        public override string ToString()
+        {
+            return $@"{this.Jaar}\{this.Nommer}";
+        }
     }
 }

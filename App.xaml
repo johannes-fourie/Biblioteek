@@ -8,12 +8,17 @@
     <Application.Resources>
         <services:DatabaseAccess x:Key="DatabaseAcess" />
 
+        <katalogus:SignalEditBoek x:Key="SignalEditBoek"/>
+
         <katalogus:AddBoekModel x:Key="AddBoekModel" DatabaseAccess="{StaticResource DatabaseAcess}" />
         <katalogus:AddBoekViewModel x:Key="AddBoekViewModel" AddBoekModel="{StaticResource AddBoekModel}" />
 
         <katalogus:ListBoekModel x:Key="ListBoekModel" DatabaseAccess="{StaticResource DatabaseAcess}" />
-        <katalogus:ListBoekViewModel x:Key="ListBoekViewModel" ListBoekModel="{StaticResource ListBoekModel}"/>
+        <katalogus:ListBoekViewModel x:Key="ListBoekViewModel" ListBoekModel="{StaticResource ListBoekModel}" SignalEditBoek="{StaticResource SignalEditBoek}"/>
 
-        <katalogus:KatalogusViewModel x:Key="KatalogusViewModel"/>
+        <katalogus:EditBoekModel x:Key="EditBoekModel" DatabaseAccess="{StaticResource DatabaseAcess}"/>
+        <katalogus:EditBoekViewModel x:Key="EditBoekViewModel" EditBoekModel="{StaticResource EditBoekModel}" SignalEditBoek="{StaticResource SignalEditBoek}"/>
+
+        <katalogus:KatalogusViewModel x:Key="KatalogusViewModel" SignalEditBoek="{StaticResource SignalEditBoek}"/>
     </Application.Resources>
 </Application>

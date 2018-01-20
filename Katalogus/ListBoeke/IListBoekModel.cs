@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Biblioteek.Types;
+﻿using Biblioteek.Types;
+using System;
 
 namespace Biblioteek.Katalogus
 {
     public interface IListBoekModel
     {
-        Maybe<BoekInformation> GetBoek(BoekNommer addToList);
-
         event EventHandler<BoekInformation> BoekAdded;
+
+        event EventHandler<BoekInformation> BoekUpdated;
+
+        Maybe<BoekInformation> GetBoek(BoekNommer addToList);
 
         void Initialize();
     }

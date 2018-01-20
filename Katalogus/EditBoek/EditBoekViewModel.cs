@@ -6,28 +6,22 @@ using System.Windows.Input;
 
 namespace Biblioteek.Katalogus
 {
-    public class AddBoekViewModel : INotifyPropertyChanged
+    public class EditBoekViewModel : INotifyPropertyChanged
     {
+        private BoekInformation boek;
         private string boekSummary;
-        private Genres genre = Genres.Fiksie;
-        private int jaar;
-        private BoekNommer lastAddedBoekNommer;
-        private string lastBoek;
-        private int nommer;
-        private OuderdomsGroepe ouderdomsGroep = OuderdomsGroepe.Kleuter;
+        private Genres genre;
+        private string nommer;
+        private OuderdomsGroepe ouderdomsGroep;
         private string skrywer;
         private string tietel;
 
-        public AddBoekViewModel()
+        public EditBoekViewModel()
         {
-            this.AddBoekCommand = new AddBoekICommand(this);
+            this.UpdateBoekCommand = new UpdateBoekICommand(this);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public AddBoekICommand AddBoekCommand { get; set; }
-
-        public IAddBoekModel AddBoekModel { get; set; }
 
         public string BoekSummary
         {
@@ -39,6 +33,8 @@ namespace Biblioteek.Katalogus
                 NotifyPropertyChanged();
             }
         }
+
+        public IEditBoekModel EditBoekModel { get; set; }
 
         public Genres Genre
         {
@@ -92,39 +88,7 @@ namespace Biblioteek.Katalogus
             }
         }
 
-        public int Jaar
-        {
-            get => this.jaar;
-
-            set
-            {
-                this.jaar = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public BoekNommer LastAddedBoekNommer
-        {
-            get => this.lastAddedBoekNommer;
-
-            set
-            {
-                this.lastAddedBoekNommer = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public string LastBoekAdded
-        {
-            get => this.lastBoek;
-            private set
-            {
-                this.lastBoek = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public int Nommer
+        public string Nommer
         {
             get => this.nommer;
 
@@ -147,6 +111,8 @@ namespace Biblioteek.Katalogus
             }
         }
 
+        public SignalEditBoek SignalEditBoek { get; set; }
+
         public string Skrywer
         {
             get => this.skrywer;
@@ -167,44 +133,38 @@ namespace Biblioteek.Katalogus
             }
         }
 
+        public UpdateBoekICommand UpdateBoekCommand { get; set; }
+
         public void Initialize()
         {
-            this.AddBoekModel.Initialize();
-            var next_boek_nommer = AddBoekModel.NextBoekNommer();
-            this.Jaar = next_boek_nommer.Jaar;
-            this.Nommer = next_boek_nommer.Nommer;
+            this.EditBoekModel.Initialize();
+            this.SignalEditBoek.Edit += this.SignalEditBoek_Edit;
         }
 
-        protected void AddBoek()
+        internal void UpdateBoek()
         {
-            var info = new BoekInformation(
-                tietel: this.Tietel.ToTietel(),
-                skrywer: this.Skrywer.ToSkrywer(),
-                genre: this.Genre,
-                ouderdomsGroep: this.OuderdomsGroep,
-                boekNommer: new BoekNommer(this.Jaar, this.Nommer));
+            this.EditBoekModel.UpdateBoek(new BoekInformation(
+                this.Tietel.ToTietel(),
+                this.Skrywer.ToSkrywer(),
+                this.Genre,
+                this.OuderdomsGroep,
+                this.boek.BoekNommer));
 
-            var result = this.AddBoekModel.AddBoek(info);
+            SignalEditBoek.FinishedEditing(this.boek.BoekNommer);
+        }
 
-            if (result == ActionResult.Success)
+        private void Load(BoekNommer nommer)
+        {
+            var boek = this.EditBoekModel.GetBoek(nommer);
+            if (boek.IsSome)
             {
-                this.LastBoekAdded = info.ToString();
-                this.LastAddedBoekNommer = info.BoekNommer;
-                this.BoekSummary = info.ToString();
-                this.ClearInputs();
+                this.boek = boek.Value;
+                this.Tietel = this.boek.Tietel.Value;
+                this.Skrywer = this.boek.Skrywer.Value;
+                this.Genre = this.boek.Genre;
+                this.OuderdomsGroep = this.boek.OuderdomsGroep;
+                this.Nommer = this.boek.BoekNommer.ToString();
             }
-            else
-                this.LastBoekAdded = "Boek is nie bygevoeg nie.";
-        }
-
-        private void ClearInputs()
-        {
-            this.Tietel = string.Empty;
-            this.Skrywer = string.Empty;
-
-            var next_boek_nommer = AddBoekModel.NextBoekNommer();
-            this.Jaar = next_boek_nommer.Jaar;
-            this.Nommer = next_boek_nommer.Nommer;
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
@@ -212,29 +172,32 @@ namespace Biblioteek.Katalogus
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public class AddBoekICommand : ICommand
+        private void SignalEditBoek_Edit(object sender, BoekNommer e)
         {
-            private AddBoekViewModel boekView;
+            Load(e);
+        }
 
-            public AddBoekICommand(AddBoekViewModel boekView)
+        public class UpdateBoekICommand : ICommand
+        {
+            private EditBoekViewModel editboekView;
+
+            public UpdateBoekICommand(EditBoekViewModel editboekView)
             {
-                this.boekView = boekView;
-                this.boekView.PropertyChanged += BoekViewPropertyChanged;
+                this.editboekView = editboekView;
+                this.editboekView.PropertyChanged += BoekViewPropertyChanged;
             }
 
             public event EventHandler CanExecuteChanged;
 
             public bool CanExecute(object parameter)
             {
-                return !string.IsNullOrWhiteSpace(boekView.Tietel)
-                    && !string.IsNullOrWhiteSpace(boekView.Skrywer)
-                    && boekView.Nommer > 0
-                    && boekView.Jaar > 0;
+                return !string.IsNullOrWhiteSpace(editboekView.Tietel)
+                    && !string.IsNullOrWhiteSpace(editboekView.Skrywer);
             }
 
             public void Execute(object parameter)
             {
-                boekView.AddBoek();
+                editboekView.UpdateBoek();
             }
 
             private void BoekViewPropertyChanged(object sender, PropertyChangedEventArgs e)
