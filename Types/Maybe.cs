@@ -2,7 +2,7 @@
 
 namespace Biblioteek.Types
 {
-    public struct Maybe<T>
+    public class Maybe<T>
     {
         private readonly bool isSome;
         private readonly T value;
@@ -11,6 +11,17 @@ namespace Biblioteek.Types
         {
             this.isSome = true;
             this.value = value;
+        }
+
+        private Maybe()
+        {
+            this.isSome = false;
+            this.value = default;
+        }
+
+        public static Maybe<T> None()
+        {
+            return new Maybe<T>();
         }
 
         public bool IsSome => this.isSome;

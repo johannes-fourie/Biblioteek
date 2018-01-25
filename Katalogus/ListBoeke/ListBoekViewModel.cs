@@ -21,6 +21,13 @@ namespace Biblioteek.Katalogus
             this.ListBoekModel.Initialize();
             this.ListBoekModel.BoekAdded += this.ListBoekModel_BoekAdded;
             this.ListBoekModel.BoekUpdated += this.ListBoekModel_BoekUpdated;
+
+            this.LoadAll();
+        }
+
+        private void LoadAll()
+        {
+
         }
 
         private void ListBoekModel_BoekAdded(object sender, BoekInformation e)
@@ -30,7 +37,7 @@ namespace Biblioteek.Katalogus
 
         private void ListBoekModel_BoekUpdated(object sender, BoekInformation e)
         {
-            this.Boeke.Remove(this.Boeke.First(b => b.BeokNommer == e.BoekNommer));
+            this.Boeke.Remove(this.Boeke.First(b => b.BeokNommer.Equals(e.BoekNommer)));
             this.Boeke.Insert(0, new BoekViewModel(e, this.SignalEditBoek));
         }
 

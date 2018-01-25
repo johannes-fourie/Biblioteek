@@ -15,7 +15,7 @@
             this.OuderdomsGroep = ouderdomsGroep;
             this.BoekNommer = boekNommer;
         }
-
+        
         public BoekNommer BoekNommer { get; }
         public Genres Genre { get; }
         public OuderdomsGroepe OuderdomsGroep { get; }
