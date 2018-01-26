@@ -1,6 +1,7 @@
 ﻿using Biblioteek.Services;
 using Biblioteek.Types;
 using System;
+using System.Collections.Generic;
 
 namespace Biblioteek.Katalogus
 {
@@ -28,6 +29,11 @@ namespace Biblioteek.Katalogus
         private void DatabaseAccess_BoekUpdated(object sender, BoekNommer e)
         {
             this.GetBoek(e).IfSome(b => BoekUpdated?.Invoke(this, b.Value));
+        }
+
+        public List<BoekInformation> GetKatalogus()
+        {
+            return this.DatabaseAccess.GetKatalogus();
         }
     }
 }

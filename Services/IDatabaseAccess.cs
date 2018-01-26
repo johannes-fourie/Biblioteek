@@ -1,5 +1,6 @@
 ﻿using Biblioteek.Types;
 using System;
+using System.Collections.Generic;
 
 namespace Biblioteek.Services
 {
@@ -16,5 +17,7 @@ namespace Biblioteek.Services
         BoekNommer LastBoekNommer();
 
         ActionResult UpdateBoek(BoekInformation boekInformation);
+
+        List<BoekInformation> GetKatalogus();
     }
 }

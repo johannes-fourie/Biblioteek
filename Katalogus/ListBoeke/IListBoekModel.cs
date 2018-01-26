@@ -1,5 +1,6 @@
 ﻿using Biblioteek.Types;
 using System;
+using System.Collections.Generic;
 
 namespace Biblioteek.Katalogus
 {
@@ -10,6 +11,8 @@ namespace Biblioteek.Katalogus
         event EventHandler<BoekInformation> BoekUpdated;
 
         Maybe<BoekInformation> GetBoek(BoekNommer addToList);
+
+        List<BoekInformation> GetKatalogus();
 
         void Initialize();
     }

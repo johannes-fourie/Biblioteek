@@ -95,6 +95,7 @@ namespace Biblioteek.Services
         {
             var boekRow = this.biblioteek.Katalogus
                 .FirstOrDefault(br => br.Jaar == boekInformation.BoekNommer.Jaar && br.Nommer == boekInformation.BoekNommer.Nommer);
+
             boekRow.Genre = boekInformation.Genre;
             boekRow.OuderdomsGroep = boekInformation.OuderdomsGroep;
             boekRow.Skrywer = boekInformation.Skrywer.Value;
@@ -109,6 +110,24 @@ namespace Biblioteek.Services
         public void Dispose()
         {
             this.biblioteek.Dispose();
+        }
+
+        public List<BoekInformation> GetKatalogus()
+        {
+            var boekData = this.biblioteek.Katalogus.ToList();
+
+            var boek = boekData
+                .Select(boekRow =>
+                    new BoekInformation(
+                        boekRow.Tietel.ToTietel(),
+                        boekRow.Skrywer.ToSkrywer(),
+                        boekRow.Genre,
+                        boekRow.OuderdomsGroep,
+                        new BoekNommer(boekRow.Jaar, boekRow.Nommer)))
+                .OrderByDescending(boekInfo => boekInfo.BoekNommer)
+                .ToList();
+
+            return boek;
         }
     }
 }

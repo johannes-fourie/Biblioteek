@@ -1,6 +1,8 @@
-﻿namespace Biblioteek.Types
+﻿using System;
+
+namespace Biblioteek.Types
 {
-    public class BoekNommer
+    public class BoekNommer : IComparable
     {
         public BoekNommer(int jaar, int nommer)
         {
@@ -11,6 +13,26 @@
         public int Jaar { get; }
 
         public int Nommer { get; }
+
+        public int CompareTo(object obj)
+        {
+            int result;
+            var boekNommer = obj as BoekNommer;
+            if (boekNommer is null)
+                result = 1;
+            else if (this.Jaar < boekNommer.Jaar)
+                result = -1;
+            else if (this.Jaar > boekNommer.Jaar)
+                result = 1;
+            else if (this.Nommer < boekNommer.Nommer)
+                result = -1;
+            else if (this.Nommer > boekNommer.Nommer)
+                result = 1;
+            else
+                result = 0;
+
+            return result;
+        }
 
         public override bool Equals(object obj)
         {

@@ -12,7 +12,18 @@ namespace Biblioteek.Katalogus
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<BoekViewModel> Boeke { get; private set; }
+        private ObservableCollection<BoekViewModel> boeke;
+        public ObservableCollection<BoekViewModel> Boeke
+        {
+            get => this.boeke;
+
+            set
+            {
+                this.boeke = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public IListBoekModel ListBoekModel { get; set; }
         public SignalEditBoek SignalEditBoek { get; set; }
 
@@ -27,7 +38,10 @@ namespace Biblioteek.Katalogus
 
         private void LoadAll()
         {
+            var katalogus = this.ListBoekModel.GetKatalogus()
+                .Select(boekInfo => new BoekViewModel(boekInfo, this.SignalEditBoek));
 
+            this.Boeke = new ObservableCollection<BoekViewModel>(katalogus);
         }
 
         private void ListBoekModel_BoekAdded(object sender, BoekInformation e)
