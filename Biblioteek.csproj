@@ -94,6 +94,7 @@
     <Compile Include="Types\ActionResult.cs" />
     <Compile Include="Types\BoekInformation.cs" />
     <Compile Include="Types\BoekNommer.cs" />
+    <Compile Include="Types\Dewey.cs" />
     <Compile Include="Types\Genres.cs" />
     <Compile Include="Types\Maybe.cs" />
     <Compile Include="Types\OuderdomsGroepe.cs" />

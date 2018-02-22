@@ -9,6 +9,7 @@ namespace Biblioteek.Katalogus
     public class AddBoekViewModel : INotifyPropertyChanged
     {
         private string boekSummary;
+        private string dewey;
         private Genres genre = Genres.Fiksie;
         private int jaar;
         private BoekNommer lastAddedBoekNommer;
@@ -37,6 +38,16 @@ namespace Biblioteek.Katalogus
             {
                 this.boekSummary = value;
                 NotifyPropertyChanged();
+            }
+        }
+
+        public string Dewey
+        {
+            get => this.dewey;
+            set
+            {
+                this.dewey = value;
+                this.NotifyPropertyChanged();
             }
         }
 
@@ -182,7 +193,8 @@ namespace Biblioteek.Katalogus
                 skrywer: this.Skrywer.ToSkrywer(),
                 genre: this.Genre,
                 ouderdomsGroep: this.OuderdomsGroep,
-                boekNommer: new BoekNommer(this.Jaar, this.Nommer));
+                boekNommer: new BoekNommer(this.Jaar, this.Nommer),
+                dewey: this.Dewey.ToDewey());
 
             var result = this.AddBoekModel.AddBoek(info);
 
@@ -201,6 +213,7 @@ namespace Biblioteek.Katalogus
         {
             this.Tietel = string.Empty;
             this.Skrywer = string.Empty;
+            this.Dewey = string.Empty;
 
             var next_boek_nommer = AddBoekModel.NextBoekNommer();
             this.Jaar = next_boek_nommer.Jaar;
@@ -228,6 +241,7 @@ namespace Biblioteek.Katalogus
             {
                 return !string.IsNullOrWhiteSpace(boekView.Tietel)
                     && !string.IsNullOrWhiteSpace(boekView.Skrywer)
+                    && !string.IsNullOrWhiteSpace(boekView.Dewey)
                     && boekView.Nommer > 0
                     && boekView.Jaar > 0;
             }

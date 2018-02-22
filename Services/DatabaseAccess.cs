@@ -3,13 +3,14 @@ using Biblioteek.Types;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 
 namespace Biblioteek.Services
 {
     public class DatabaseAccess : IDatabaseAccess, IDisposable
     {
+        private BiblioteekContext biblioteek;
+
         public DatabaseAccess()
         {
             var connectionString = ConfigurationManager.AppSettings["BiblioteekConnectionString"];
@@ -20,28 +21,32 @@ namespace Biblioteek.Services
 
         public event EventHandler<BoekNommer> BoekUpdated;
 
-        private BiblioteekContext biblioteek;
-
         public ActionResult AddBoek(BoekInformation boekInfo)
         {
             ActionResult result;
-                var boek = new BoekRow()
-                {
-                    Jaar = boekInfo.BoekNommer.Jaar,
-                    Nommer = boekInfo.BoekNommer.Nommer,
-                    Genre = boekInfo.Genre,
-                    OuderdomsGroep = boekInfo.OuderdomsGroep,
-                    Skrywer = boekInfo.Skrywer.Value,
-                    Tietel = boekInfo.Tietel.Value
-                };
+            var boek = new BoekRow()
+            {
+                Jaar = boekInfo.BoekNommer.Jaar,
+                Nommer = boekInfo.BoekNommer.Nommer,
+                Genre = boekInfo.Genre,
+                OuderdomsGroep = boekInfo.OuderdomsGroep,
+                Skrywer = boekInfo.Skrywer.Value,
+                Tietel = boekInfo.Tietel.Value,
+                Dewey = boekInfo.Dewey.Number
+            };
 
-                biblioteek.Katalogus.Add(boek);
-                biblioteek.SaveChanges();
+            biblioteek.Katalogus.Add(boek);
+            biblioteek.SaveChanges();
 
             result = ActionResult.Success;
             this.BoekAdded?.Invoke(this, boekInfo.BoekNommer);
 
             return result;
+        }
+
+        public void Dispose()
+        {
+            this.biblioteek.Dispose();
         }
 
         public Maybe<BoekInformation> GetBoek(BoekNommer boekNommer)
@@ -57,7 +62,27 @@ namespace Biblioteek.Services
                     boekRow.Skrywer.ToSkrywer(),
                     boekRow.Genre,
                     boekRow.OuderdomsGroep,
-                    new BoekNommer(boekRow.Jaar, boekRow.Nommer)));
+                    new BoekNommer(boekRow.Jaar, boekRow.Nommer),
+                    boekRow.Dewey.ToDewey()));
+
+            return boek;
+        }
+
+        public List<BoekInformation> GetKatalogus()
+        {
+            var boekData = this.biblioteek.Katalogus.ToList();
+
+            var boek = boekData
+                .Select(boekRow =>
+                    new BoekInformation(
+                        boekRow.Tietel.ToTietel(),
+                        boekRow.Skrywer.ToSkrywer(),
+                        boekRow.Genre,
+                        boekRow.OuderdomsGroep,
+                        new BoekNommer(boekRow.Jaar, boekRow.Nommer),
+                        boekRow.Dewey.ToDewey()))
+                .OrderByDescending(boekInfo => boekInfo.BoekNommer)
+                .ToList();
 
             return boek;
         }
@@ -73,7 +98,7 @@ namespace Biblioteek.Services
                 .DefaultIfEmpty()
                 .Max();
 
-            if(maxJaar < thisJaar)
+            if (maxJaar < thisJaar)
             {
                 lastBoekNommer = new BoekNommer(jaar: (DateTime.Now.Year % 1000) % 100, nommer: 0);
             }
@@ -100,34 +125,12 @@ namespace Biblioteek.Services
             boekRow.OuderdomsGroep = boekInformation.OuderdomsGroep;
             boekRow.Skrywer = boekInformation.Skrywer.Value;
             boekRow.Tietel = boekInformation.Tietel.Value;
+            boekRow.Dewey = boekInformation.Dewey.Number;
 
             this.biblioteek.SaveChanges();
 
             this.BoekUpdated?.Invoke(this, boekInformation.BoekNommer);
             return ActionResult.Success;
-        }
-
-        public void Dispose()
-        {
-            this.biblioteek.Dispose();
-        }
-
-        public List<BoekInformation> GetKatalogus()
-        {
-            var boekData = this.biblioteek.Katalogus.ToList();
-
-            var boek = boekData
-                .Select(boekRow =>
-                    new BoekInformation(
-                        boekRow.Tietel.ToTietel(),
-                        boekRow.Skrywer.ToSkrywer(),
-                        boekRow.Genre,
-                        boekRow.OuderdomsGroep,
-                        new BoekNommer(boekRow.Jaar, boekRow.Nommer)))
-                .OrderByDescending(boekInfo => boekInfo.BoekNommer)
-                .ToList();
-
-            return boek;
         }
     }
 }

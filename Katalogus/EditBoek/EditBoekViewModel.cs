@@ -15,6 +15,7 @@ namespace Biblioteek.Katalogus
         private OuderdomsGroepe ouderdomsGroep;
         private string skrywer;
         private string tietel;
+        private string dewey;
 
         public EditBoekViewModel()
         {
@@ -133,6 +134,16 @@ namespace Biblioteek.Katalogus
             }
         }
 
+        public string Dewey
+        {
+            get => this.dewey;
+            set
+            {
+                this.dewey = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public UpdateBoekICommand UpdateBoekCommand { get; set; }
 
         public void Initialize()
@@ -148,7 +159,8 @@ namespace Biblioteek.Katalogus
                 this.Skrywer.ToSkrywer(),
                 this.Genre,
                 this.OuderdomsGroep,
-                this.boek.BoekNommer));
+                this.boek.BoekNommer,
+                this.Dewey.ToDewey()));
 
             SignalEditBoek.FinishedEditing(this.boek.BoekNommer);
         }
@@ -164,6 +176,7 @@ namespace Biblioteek.Katalogus
                 this.Genre = this.boek.Genre;
                 this.OuderdomsGroep = this.boek.OuderdomsGroep;
                 this.Nommer = this.boek.BoekNommer.ToString();
+                this.Dewey = this.boek.Dewey.Number;
             }
         }
 

@@ -30,6 +30,8 @@
             <RowDefinition Height="25" />
             <RowDefinition Height="5" />
             <RowDefinition Height="25" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="25" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -67,11 +69,14 @@
         <TextBlock Grid.Column="0" Grid.Row="8" Text="Nommer" VerticalAlignment="Center" FontSize="15" />
         <TextBlock Grid.Column="2" Grid.Row="8" Margin="0,0,5,0" Text="{Binding Nommer}" />
 
-        <StackPanel Orientation="Horizontal" Grid.Row="10" Grid.ColumnSpan="3">
+        <TextBlock Grid.Column="0" Grid.Row="10" Text="Dewey" VerticalAlignment="Center" FontSize="15" />
+        <TextBox Grid.Column="2" Grid.Row="10" Text="{Binding Dewey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <StackPanel Orientation="Horizontal" Grid.Row="12" Grid.ColumnSpan="3">
             <Button Width="55" HorizontalAlignment="Left" Command="{Binding UpdateBoekCommand}">
                 <ContentControl Content="{StaticResource EditIcon}" VerticalAlignment="Center" />
             </Button>
-            <TextBlock Text="{Binding BoekSummary}"/>
+            <TextBlock Text="{Binding BoekSummary}" Margin="5,0,0,0"/>
         </StackPanel>
     </Grid>
 </UserControl>

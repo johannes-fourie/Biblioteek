@@ -12,7 +12,6 @@ namespace Biblioteek.Services.DatabaseTypes
     [Table("Katalogus")]
     public class BoekRow
     {
-
         public BoekRow()
         { }
 
@@ -29,5 +28,7 @@ namespace Biblioteek.Services.DatabaseTypes
         public string Skrywer { get; set; }
 
         public string Tietel { get; set; }
+
+        public string Dewey { get; set; }
     }
 }
