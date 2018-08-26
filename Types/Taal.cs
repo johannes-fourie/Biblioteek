@@ -6,56 +6,44 @@ using System.Runtime.CompilerServices;
 
 namespace Biblioteek.Types
 {
-    public enum Genres
+    public enum Tale
     {
-        Fiksie,
-        Nie_fiksie
+        English,
+        Afrikaans
     }
 
-    public class Genre : INotifyPropertyChanged
+    public class Taal : INotifyPropertyChanged
     {
-        public Genre(Genres genre)
+        public Taal(Tale taal)
         {
-            this.NameValues = new List<GenreNameValue>();
-            this.Value = genre;            
+            this.NameValues = new List<TaalNameValue>();
+            this.Value = taal;            
 
-            foreach (var g in Enum.GetValues(typeof(Genres)).Cast<Genres>())
+            foreach (var t in Enum.GetValues(typeof(Tale)).Cast<Tale>())
             {
-                var valuePare = new GenreNameValue()
+                var valuePare = new TaalNameValue()
                 {
-                    Genre = g,
-                    Name = g.ToString().Replace('_', ' '),
-                    Set = g == Value
+                    Taal = t,
+                    Name = t.ToString().Replace('_', ' '),
+                    Set = t == Value
                 };
 
-                valuePare.GenreSet += GenreSet;
+                valuePare.TaalSet += (object sender, Tale e) => Value = e;
                 this.NameValues.Add(valuePare);
             }
         }
 
-        public void GenreSet(object sender, Genres genres)
-        {
-            if (!updatingValue)
-                Value = genres;
-        }
+        public List<TaalNameValue> NameValues { get; }
 
-        public List<GenreNameValue> NameValues { get; }
+        private Tale value;
 
-        private Genres value;
-        private bool updatingValue;
-
-        public Genres Value
+        public Tale Value
         {
             get => this.value;
             set
             {
-                this.updatingValue = true;
                 this.value = value;
-                this.NameValues
-                    .Where(nv => nv.Genre == this.value )
-                    .ToList()
-                    .ForEach(nv => nv.Set = true);
-                this.updatingValue = false;
+                this.NameValues.Where(nv => nv.Taal == this.value && !nv.Set).ToList().ForEach(nv => nv.Set = true);
                 this.NotifyPropertyChanged();
             }
         }
@@ -68,11 +56,11 @@ namespace Biblioteek.Types
         public event PropertyChangedEventHandler PropertyChanged;
     }
 
-    public class GenreNameValue : INotifyPropertyChanged
+    public class TaalNameValue : INotifyPropertyChanged
     {
         private bool set;
 
-        public event EventHandler<Genres> GenreSet;
+        public event EventHandler<Tale> TaalSet;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -87,16 +75,16 @@ namespace Biblioteek.Types
                 NotifyPropertyChanged();
                 if (value)
                 {
-                    GenreSet?.Invoke(this, Genre);
+                    TaalSet?.Invoke(this, Taal);
                 }
             }
         }
+
+        public Tale Taal { get; set; }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        public Genres Genre { get; set; }
     }
 }

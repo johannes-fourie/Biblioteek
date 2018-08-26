@@ -10,7 +10,6 @@ namespace Biblioteek.Katalogus
     {
         private string boekSummary;
         private string dewey;
-        private Genres genre = Genres.Fiksie;
         private int jaar;
         private BoekNommer lastAddedBoekNommer;
         private string lastBoek;
@@ -22,6 +21,9 @@ namespace Biblioteek.Katalogus
         public AddBoekViewModel()
         {
             this.AddBoekCommand = new AddBoekICommand(this);
+            this.Taal = new Taal(default);
+            this.Genre = new Genre(default);
+            this.OuderdomsGroep = new OuderdomsGroep(default);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -51,57 +53,7 @@ namespace Biblioteek.Katalogus
             }
         }
 
-        public Genres Genre
-        {
-            get => this.genre;
-            set
-            {
-                this.genre = value;
-                this.NotifyPropertyChanged();
-                this.NotifyPropertyChanged("Is_Fiksie");
-                this.NotifyPropertyChanged("Fiksie");
-            }
-        }
-
-        public bool Is_fiksie
-        {
-            get => this.genre == Genres.Fiksie;
-            set
-            {
-                if (value)
-                    this.Genre = Genres.Fiksie;
-            }
-        }
-
-        public bool Is_kleuter
-        {
-            get => this.ouderdomsGroep == OuderdomsGroepe.Kleuter;
-            set
-            {
-                if (value)
-                    this.ouderdomsGroep = OuderdomsGroepe.Kleuter;
-            }
-        }
-
-        public bool Is_nie_fiksie
-        {
-            get => this.genre == Genres.Nie_fiksie;
-            set
-            {
-                if (value)
-                    this.Genre = Genres.Nie_fiksie;
-            }
-        }
-
-        public bool Is_tiener
-        {
-            get => this.ouderdomsGroep == OuderdomsGroepe.Tiener;
-            set
-            {
-                if (value)
-                    this.ouderdomsGroep = OuderdomsGroepe.Tiener;
-            }
-        }
+        public Genre Genre { get; private set; }
 
         public int Jaar
         {
@@ -146,17 +98,7 @@ namespace Biblioteek.Katalogus
             }
         }
 
-        public OuderdomsGroepe OuderdomsGroep
-        {
-            get => this.ouderdomsGroep;
-            set
-            {
-                this.ouderdomsGroep = value;
-                this.NotifyPropertyChanged();
-                this.NotifyPropertyChanged("Is_tiener");
-                this.NotifyPropertyChanged("Is_kleuter");
-            }
-        }
+        public OuderdomsGroep OuderdomsGroep { get; private set; }
 
         public string Skrywer
         {
@@ -178,6 +120,8 @@ namespace Biblioteek.Katalogus
             }
         }
 
+        public Taal Taal { get; private set; }
+
         public void Initialize()
         {
             this.AddBoekModel.Initialize();
@@ -191,10 +135,11 @@ namespace Biblioteek.Katalogus
             var info = new BoekInformation(
                 tietel: this.Tietel.ToTietel(),
                 skrywer: this.Skrywer.ToSkrywer(),
-                genre: this.Genre,
-                ouderdomsGroep: this.OuderdomsGroep,
+                genre: this.Genre.Value,
+                ouderdomsGroep: this.OuderdomsGroep.Value,
                 boekNommer: new BoekNommer(this.Jaar, this.Nommer),
-                dewey: this.Dewey.ToDewey());
+                dewey: this.Dewey.ToDewey(),
+                taal: this.Taal.Value);
 
             var result = this.AddBoekModel.AddBoek(info);
 

@@ -8,7 +8,8 @@
             Genres genre,
             OuderdomsGroepe ouderdomsGroep,
             BoekNommer boekNommer,
-            Dewey dewey)
+            Dewey dewey,
+            Tale taal)
         {
             this.Tietel = tietel;
             this.Skrywer = skrywer;
@@ -16,6 +17,7 @@
             this.OuderdomsGroep = ouderdomsGroep;
             this.BoekNommer = boekNommer;
             this.Dewey = dewey;
+            this.Taal = taal;
         }
 
         public BoekNommer BoekNommer { get; }
@@ -24,10 +26,11 @@
         public OuderdomsGroepe OuderdomsGroep { get; }
         public Skrywer Skrywer { get; }
         public Tietel Tietel { get; }
+        public Tale Taal { get; }
 
         public override string ToString()
         {
-            return $@"[{this.BoekNommer}] {this.Tietel}; {this.Skrywer}; {this.Genre}; {this.OuderdomsGroep}; [{this.Dewey}]";
+            return $@"[{this.BoekNommer}] {this.Tietel}; {this.Skrywer}; {this.Genre}; {this.OuderdomsGroep}; [{this.Dewey}]; {this.Taal}";
         }
     }
 }

@@ -56,11 +56,5 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\BiblioteekDataBasis\BiblioteekDataBasis.csproj">
-      <Project>{2f0a0f61-a0c8-45af-9f32-f38fe70fa0b8}</Project>
-      <Name>BiblioteekDataBasis</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

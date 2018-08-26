@@ -30,5 +30,7 @@ namespace Biblioteek.Services.DatabaseTypes
         public string Tietel { get; set; }
 
         public string Dewey { get; set; }
+
+        public Tale Taal { get; set; }
     }
 }

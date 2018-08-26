@@ -10,9 +10,7 @@ namespace Biblioteek.Katalogus
     {
         private BoekInformation boek;
         private string boekSummary;
-        private Genres genre;
         private string nommer;
-        private OuderdomsGroepe ouderdomsGroep;
         private string skrywer;
         private string tietel;
         private string dewey;
@@ -20,6 +18,9 @@ namespace Biblioteek.Katalogus
         public EditBoekViewModel()
         {
             this.UpdateBoekCommand = new UpdateBoekICommand(this);
+            this.Taal = new Taal(default);
+            this.Genre = new Genre(default);
+            this.OuderdomsGroep = new OuderdomsGroep(default); 
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -37,57 +38,7 @@ namespace Biblioteek.Katalogus
 
         public IEditBoekModel EditBoekModel { get; set; }
 
-        public Genres Genre
-        {
-            get => this.genre;
-            set
-            {
-                this.genre = value;
-                this.NotifyPropertyChanged();
-                this.NotifyPropertyChanged("Is_Fiksie");
-                this.NotifyPropertyChanged("Fiksie");
-            }
-        }
-
-        public bool Is_fiksie
-        {
-            get => this.genre == Genres.Fiksie;
-            set
-            {
-                if (value)
-                    this.Genre = Genres.Fiksie;
-            }
-        }
-
-        public bool Is_kleuter
-        {
-            get => this.ouderdomsGroep == OuderdomsGroepe.Kleuter;
-            set
-            {
-                if (value)
-                    this.ouderdomsGroep = OuderdomsGroepe.Kleuter;
-            }
-        }
-
-        public bool Is_nie_fiksie
-        {
-            get => this.genre == Genres.Nie_fiksie;
-            set
-            {
-                if (value)
-                    this.Genre = Genres.Nie_fiksie;
-            }
-        }
-
-        public bool Is_tiener
-        {
-            get => this.ouderdomsGroep == OuderdomsGroepe.Tiener;
-            set
-            {
-                if (value)
-                    this.ouderdomsGroep = OuderdomsGroepe.Tiener;
-            }
-        }
+        public Genre Genre { get; private set; }
 
         public string Nommer
         {
@@ -100,17 +51,7 @@ namespace Biblioteek.Katalogus
             }
         }
 
-        public OuderdomsGroepe OuderdomsGroep
-        {
-            get => this.ouderdomsGroep;
-            set
-            {
-                this.ouderdomsGroep = value;
-                this.NotifyPropertyChanged();
-                this.NotifyPropertyChanged("Is_tiener");
-                this.NotifyPropertyChanged("Is_kleuter");
-            }
-        }
+        public OuderdomsGroep OuderdomsGroep { get; private set; }
 
         public SignalEditBoek SignalEditBoek { get; set; }
 
@@ -144,6 +85,8 @@ namespace Biblioteek.Katalogus
             }
         }
 
+        public Taal Taal { get; private set; }
+
         public UpdateBoekICommand UpdateBoekCommand { get; set; }
 
         public void Initialize()
@@ -157,10 +100,11 @@ namespace Biblioteek.Katalogus
             this.EditBoekModel.UpdateBoek(new BoekInformation(
                 this.Tietel.ToTietel(),
                 this.Skrywer.ToSkrywer(),
-                this.Genre,
-                this.OuderdomsGroep,
+                this.Genre.Value,
+                this.OuderdomsGroep.Value,
                 this.boek.BoekNommer,
-                this.Dewey.ToDewey()));
+                this.Dewey.ToDewey(),
+                this.Taal.Value));
 
             SignalEditBoek.FinishedEditing(this.boek.BoekNommer);
         }
@@ -173,10 +117,11 @@ namespace Biblioteek.Katalogus
                 this.boek = boek.Value;
                 this.Tietel = this.boek.Tietel.Value;
                 this.Skrywer = this.boek.Skrywer.Value;
-                this.Genre = this.boek.Genre;
-                this.OuderdomsGroep = this.boek.OuderdomsGroep;
+                this.Genre.Value = this.boek.Genre;
+                this.OuderdomsGroep.Value = this.boek.OuderdomsGroep;
                 this.Nommer = this.boek.BoekNommer.ToString();
                 this.Dewey = this.boek.Dewey.Number;
+                this.Taal.Value = this.boek.Taal;
             }
         }
 

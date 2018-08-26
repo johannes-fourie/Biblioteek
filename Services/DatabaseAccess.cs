@@ -32,7 +32,8 @@ namespace Biblioteek.Services
                 OuderdomsGroep = boekInfo.OuderdomsGroep,
                 Skrywer = boekInfo.Skrywer.Value,
                 Tietel = boekInfo.Tietel.Value,
-                Dewey = boekInfo.Dewey.Number
+                Dewey = boekInfo.Dewey.Number,
+                Taal = boekInfo.Taal
             };
 
             biblioteek.Katalogus.Add(boek);
@@ -57,13 +58,15 @@ namespace Biblioteek.Services
 
             Maybe<BoekInformation> boek = boekRow is null
                 ? Maybe<BoekInformation>.None()
-                : new Maybe<BoekInformation>(new BoekInformation(
-                    boekRow.Tietel.ToTietel(),
-                    boekRow.Skrywer.ToSkrywer(),
-                    boekRow.Genre,
-                    boekRow.OuderdomsGroep,
-                    new BoekNommer(boekRow.Jaar, boekRow.Nommer),
-                    boekRow.Dewey.ToDewey()));
+                : new Maybe<BoekInformation>(
+                    new BoekInformation(
+                        boekRow.Tietel.ToTietel(),
+                        boekRow.Skrywer.ToSkrywer(),
+                        boekRow.Genre,
+                        boekRow.OuderdomsGroep,
+                        new BoekNommer(boekRow.Jaar, boekRow.Nommer),
+                        boekRow.Dewey.ToDewey(),
+                        boekRow.Taal));
 
             return boek;
         }
@@ -80,7 +83,8 @@ namespace Biblioteek.Services
                         boekRow.Genre,
                         boekRow.OuderdomsGroep,
                         new BoekNommer(boekRow.Jaar, boekRow.Nommer),
-                        boekRow.Dewey.ToDewey()))
+                        boekRow.Dewey.ToDewey(),
+                        boekRow.Taal))
                 .OrderByDescending(boekInfo => boekInfo.BoekNommer)
                 .ToList();
 

@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Biblioteek"
+                    xmlns:Types="clr-namespace:Biblioteek.Types">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Biblioteek;component/IconDictionary.xaml" />
+        <ResourceDictionary Source="/Biblioteek;component/StyleDictionary.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <DataTemplate x:Key="EditTietel" DataType="Types:Genres">
+    </DataTemplate>
+    <!--
+    <DataTemplate x:Key="EditTietel" DataType="{x:Type Types:Tietel}">
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+            <TextBlock Text="Tietel" Width="55"  Margin="0,0,0,5" />
+            <TextBox Text="{Binding Path=Value, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EditSkrywer" DataType="{x:Type Types:Skrywer}">
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+            <TextBlock Text="Skrywer" Width="55"  Margin="0,0,0,5" />
+            <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding Path=Skrywer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EditGenre" DataType="{x:Type Types:Genres}">
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+            <TextBlock Text="Genre" Width="55"  Margin="0,0,0,5" />
+            <ItemsControl DataContext="{Binding Path=ValuePares}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton GroupName="OuderdomsGroep"  Style="{StaticResource SelectorButton}"  IsChecked="{Binding Path=Set}">
+                            <TextBlock Text="{Binding Path=Name}" />
+                        </RadioButton>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </DataTemplate>
+-->
+</ResourceDictionary>

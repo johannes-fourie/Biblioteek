@@ -50,6 +50,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -88,6 +89,11 @@
     <Compile Include="Katalogus\ListBoeke\ListBoekModel.cs" />
     <Compile Include="Katalogus\ListBoeke\ListBoekViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
+    <Compile Include="Migrations\201808260928383_AddKatalogusTaal.cs" />
+    <Compile Include="Migrations\201808260928383_AddKatalogusTaal.Designer.cs">
+      <DependentUpon>201808260928383_AddKatalogusTaal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Services\DatabaseTypes\BiblioteekContext.cs" />
     <Compile Include="Services\DatabaseTypes\BoekRow.cs" />
     <Compile Include="Services\IDatabaseAccess.cs" />
@@ -100,6 +106,7 @@
     <Compile Include="Types\OuderdomsGroepe.cs" />
     <Compile Include="Types\ServiceName.cs" />
     <Compile Include="Types\Skrywer.cs" />
+    <Compile Include="Types\Taal.cs" />
     <Compile Include="Types\Tietel.cs" />
     <Compile Include="Types\Value.cs" />
     <Page Include="IconDictionary.xaml">
@@ -190,6 +197,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201808260928383_AddKatalogusTaal.resx">
+      <DependentUpon>201808260928383_AddKatalogusTaal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
