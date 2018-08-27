@@ -1,29 +1,30 @@
-﻿using System;
-
-namespace Biblioteek.Types
+﻿namespace Biblioteek.Types
 {
-    public struct Skrywer
-    {
-        public Skrywer(string skrywer)
-        {
-            this.Value = !string.IsNullOrWhiteSpace(skrywer)
-                ? skrywer
-                : throw new NullReferenceException("Die boek moet 'n skrywer hê.");
-        }
-
-        public string Value { get; }
-
-        public override string ToString()
-        {
-            return this.Value;
-        }
-    }
-
     public static class SkrywerExtension
     {
-        public static Skrywer ToSkrywer(this string skrywer)
+        public static Skrywer ToSkrywer(this string skrywer) => new Skrywer(skrywer);
+    }
+
+    public class Skrywer : NotifyPropertyChangedBase, IVlaue<string>
+    {
+        private string value;
+
+        public Skrywer() => this.value = string.Empty;
+
+        public Skrywer(string skrywer) => this.value = skrywer;
+
+        public string Value
         {
-            return new Skrywer(skrywer);
+            get => this.value;
+            set
+            {
+                this.value = value;
+                this.NotifyPropertyChanged();
+            }
         }
+
+        public void Reset() => this.Value = string.Empty;
+
+        public override string ToString() => this.Value;
     }
 }

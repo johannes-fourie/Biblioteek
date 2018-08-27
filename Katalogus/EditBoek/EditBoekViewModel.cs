@@ -1,29 +1,40 @@
 ﻿using Biblioteek.Types;
 using System;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace Biblioteek.Katalogus
 {
-    public class EditBoekViewModel : INotifyPropertyChanged
+    public class EditBoekViewModel : NotifyPropertyChangedBase
     {
         private BoekInformation boek;
         private string boekSummary;
         private string nommer;
-        private string skrywer;
-        private string tietel;
-        private string dewey;
 
         public EditBoekViewModel()
         {
             this.UpdateBoekCommand = new UpdateBoekICommand(this);
-            this.Taal = new Taal(default);
-            this.Genre = new Genre(default);
-            this.OuderdomsGroep = new OuderdomsGroep(default); 
+
+            this.Dewey = new Dewey();
+            this.Dewey.PropertyChanged += this.ValuePropertyChanged;
+
+            this.Genre = new Genre();
+            this.Genre.PropertyChanged += this.ValuePropertyChanged;
+
+            this.OuderdomsGroep = new OuderdomsGroep();
+            this.OuderdomsGroep.PropertyChanged += this.ValuePropertyChanged;
+
+            this.Skrywer = new Skrywer();
+            this.Skrywer.PropertyChanged += this.ValuePropertyChanged;
+
+            this.Taal = new Taal();
+            this.Taal.PropertyChanged += this.ValuePropertyChanged;
+
+            this.Tietel = new Tietel();
+            this.Tietel.PropertyChanged += this.ValuePropertyChanged;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler ValueChanged;
 
         public string BoekSummary
         {
@@ -35,6 +46,8 @@ namespace Biblioteek.Katalogus
                 NotifyPropertyChanged();
             }
         }
+
+        public Dewey Dewey { get; private set; }
 
         public IEditBoekModel EditBoekModel { get; set; }
 
@@ -55,37 +68,11 @@ namespace Biblioteek.Katalogus
 
         public SignalEditBoek SignalEditBoek { get; set; }
 
-        public string Skrywer
-        {
-            get => this.skrywer;
-            set
-            {
-                this.skrywer = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public string Tietel
-        {
-            get => this.tietel;
-            set
-            {
-                this.tietel = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public string Dewey
-        {
-            get => this.dewey;
-            set
-            {
-                this.dewey = value;
-                NotifyPropertyChanged();
-            }
-        }
+        public Skrywer Skrywer { get; private set; }
 
         public Taal Taal { get; private set; }
+
+        public Tietel Tietel { get; private set; }
 
         public UpdateBoekICommand UpdateBoekCommand { get; set; }
 
@@ -98,12 +85,12 @@ namespace Biblioteek.Katalogus
         internal void UpdateBoek()
         {
             this.EditBoekModel.UpdateBoek(new BoekInformation(
-                this.Tietel.ToTietel(),
-                this.Skrywer.ToSkrywer(),
+                this.Tietel,
+                this.Skrywer,
                 this.Genre.Value,
                 this.OuderdomsGroep.Value,
                 this.boek.BoekNommer,
-                this.Dewey.ToDewey(),
+                this.Dewey,
                 this.Taal.Value));
 
             SignalEditBoek.FinishedEditing(this.boek.BoekNommer);
@@ -115,25 +102,22 @@ namespace Biblioteek.Katalogus
             if (boek.IsSome)
             {
                 this.boek = boek.Value;
-                this.Tietel = this.boek.Tietel.Value;
-                this.Skrywer = this.boek.Skrywer.Value;
+                this.Tietel.Value = this.boek.Tietel.Value;
+                this.Skrywer.Value = this.boek.Skrywer.Value;
                 this.Genre.Value = this.boek.Genre;
                 this.OuderdomsGroep.Value = this.boek.OuderdomsGroep;
                 this.Nommer = this.boek.BoekNommer.ToString();
-                this.Dewey = this.boek.Dewey.Number;
+                this.Dewey.Value = this.boek.Dewey.Value;
                 this.Taal.Value = this.boek.Taal;
             }
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void SignalEditBoek_Edit(object sender, BoekNommer e)
         {
             Load(e);
         }
+
+        private void ValuePropertyChanged(object sender, PropertyChangedEventArgs e) => this.ValueChanged?.Invoke(this, EventArgs.Empty);
 
         public class UpdateBoekICommand : ICommand
         {
@@ -142,15 +126,15 @@ namespace Biblioteek.Katalogus
             public UpdateBoekICommand(EditBoekViewModel editboekView)
             {
                 this.editboekView = editboekView;
-                this.editboekView.PropertyChanged += BoekViewPropertyChanged;
+                this.editboekView.ValueChanged += (object sender, EventArgs e) => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
             }
 
             public event EventHandler CanExecuteChanged;
 
             public bool CanExecute(object parameter)
             {
-                return !string.IsNullOrWhiteSpace(editboekView.Tietel)
-                    && !string.IsNullOrWhiteSpace(editboekView.Skrywer);
+                return !string.IsNullOrWhiteSpace(editboekView.Tietel.Value)
+                    && !string.IsNullOrWhiteSpace(editboekView.Skrywer.Value);
             }
 
             public void Execute(object parameter)

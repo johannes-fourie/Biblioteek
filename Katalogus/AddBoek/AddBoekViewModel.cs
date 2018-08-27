@@ -1,32 +1,49 @@
 ﻿using Biblioteek.Types;
 using System;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace Biblioteek.Katalogus
 {
-    public class AddBoekViewModel : INotifyPropertyChanged
+    public class AddBoekViewModel : NotifyPropertyChangedBase
     {
         private string boekSummary;
-        private string dewey;
         private int jaar;
         private BoekNommer lastAddedBoekNommer;
         private string lastBoek;
         private int nommer;
-        private OuderdomsGroepe ouderdomsGroep = OuderdomsGroepe.Kleuter;
-        private string skrywer;
-        private string tietel;
 
         public AddBoekViewModel()
         {
             this.AddBoekCommand = new AddBoekICommand(this);
-            this.Taal = new Taal(default);
-            this.Genre = new Genre(default);
-            this.OuderdomsGroep = new OuderdomsGroep(default);
+
+            this.Dewey = new Dewey();
+            this.Dewey.PropertyChanged += this.ValuePropertyChanged;
+
+            this.Genre = new Genre();
+            this.Genre.PropertyChanged += this.ValuePropertyChanged;
+
+            this.OuderdomsGroep = new OuderdomsGroep();
+            this.OuderdomsGroep.PropertyChanged += this.ValuePropertyChanged;
+
+            this.Skrywer = new Skrywer();
+            this.Skrywer.PropertyChanged += this.ValuePropertyChanged;
+
+            this.Taal = new Taal();
+            this.Taal.PropertyChanged += this.ValuePropertyChanged;
+
+            this.Tietel = new Tietel();
+            this.Tietel.PropertyChanged += this.ValuePropertyChanged;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public void Refresh()
+        {
+            this.Genre.Value = this.Genre.Value;
+            this.OuderdomsGroep.Value = this.OuderdomsGroep.Value;
+            this.Taal.Value = this.Taal.Value;
+        }
+
+        public event EventHandler ValueChanged;
 
         public AddBoekICommand AddBoekCommand { get; set; }
 
@@ -43,15 +60,7 @@ namespace Biblioteek.Katalogus
             }
         }
 
-        public string Dewey
-        {
-            get => this.dewey;
-            set
-            {
-                this.dewey = value;
-                this.NotifyPropertyChanged();
-            }
-        }
+        public Dewey Dewey { get; private set; }
 
         public Genre Genre { get; private set; }
 
@@ -100,27 +109,11 @@ namespace Biblioteek.Katalogus
 
         public OuderdomsGroep OuderdomsGroep { get; private set; }
 
-        public string Skrywer
-        {
-            get => this.skrywer;
-            set
-            {
-                this.skrywer = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        public string Tietel
-        {
-            get => this.tietel;
-            set
-            {
-                this.tietel = value;
-                NotifyPropertyChanged();
-            }
-        }
+        public Skrywer Skrywer { get; private set; }
 
         public Taal Taal { get; private set; }
+
+        public Tietel Tietel { get; private set; }
 
         public void Initialize()
         {
@@ -133,12 +126,12 @@ namespace Biblioteek.Katalogus
         protected void AddBoek()
         {
             var info = new BoekInformation(
-                tietel: this.Tietel.ToTietel(),
-                skrywer: this.Skrywer.ToSkrywer(),
+                tietel: this.Tietel,
+                skrywer: this.Skrywer,
                 genre: this.Genre.Value,
                 ouderdomsGroep: this.OuderdomsGroep.Value,
                 boekNommer: new BoekNommer(this.Jaar, this.Nommer),
-                dewey: this.Dewey.ToDewey(),
+                dewey: this.Dewey,
                 taal: this.Taal.Value);
 
             var result = this.AddBoekModel.AddBoek(info);
@@ -156,19 +149,17 @@ namespace Biblioteek.Katalogus
 
         private void ClearInputs()
         {
-            this.Tietel = string.Empty;
-            this.Skrywer = string.Empty;
-            this.Dewey = string.Empty;
+            this.Tietel.Reset();
+            this.Skrywer.Reset();
+            this.Dewey.Reset();
 
             var next_boek_nommer = AddBoekModel.NextBoekNommer();
             this.Jaar = next_boek_nommer.Jaar;
             this.Nommer = next_boek_nommer.Nommer;
         }
 
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        private void ValuePropertyChanged(object sender, PropertyChangedEventArgs e) 
+            => this.ValueChanged?.Invoke(this, EventArgs.Empty);
 
         public class AddBoekICommand : ICommand
         {
@@ -177,29 +168,22 @@ namespace Biblioteek.Katalogus
             public AddBoekICommand(AddBoekViewModel boekView)
             {
                 this.boekView = boekView;
-                this.boekView.PropertyChanged += BoekViewPropertyChanged;
+                this.boekView.ValueChanged += 
+                    (object sender, EventArgs e) => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
             }
 
             public event EventHandler CanExecuteChanged;
 
             public bool CanExecute(object parameter)
             {
-                return !string.IsNullOrWhiteSpace(boekView.Tietel)
-                    && !string.IsNullOrWhiteSpace(boekView.Skrywer)
-                    && !string.IsNullOrWhiteSpace(boekView.Dewey)
+                return !string.IsNullOrWhiteSpace(boekView.Tietel.Value)
+                    && !string.IsNullOrWhiteSpace(boekView.Skrywer.Value)
+                    && !string.IsNullOrWhiteSpace(boekView.Dewey.Value)
                     && boekView.Nommer > 0
                     && boekView.Jaar > 0;
             }
 
-            public void Execute(object parameter)
-            {
-                boekView.AddBoek();
-            }
-
-            private void BoekViewPropertyChanged(object sender, PropertyChangedEventArgs e)
-            {
-                CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-            }
+            public void Execute(object parameter) => boekView.AddBoek();
         }
     }
 }

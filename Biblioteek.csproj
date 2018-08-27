@@ -102,7 +102,9 @@
     <Compile Include="Types\BoekNommer.cs" />
     <Compile Include="Types\Dewey.cs" />
     <Compile Include="Types\Genres.cs" />
+    <Compile Include="Types\IVlaue.cs" />
     <Compile Include="Types\Maybe.cs" />
+    <Compile Include="Types\NotifyPropertyChangedBase.cs" />
     <Compile Include="Types\OuderdomsGroepe.cs" />
     <Compile Include="Types\ServiceName.cs" />
     <Compile Include="Types\Skrywer.cs" />

@@ -12,8 +12,12 @@ namespace Biblioteek.Types
         Tiener
     }
 
-    public class OuderdomsGroep : INotifyPropertyChanged
+    public class OuderdomsGroep : NotifyPropertyChangedBase, IVlaue<OuderdomsGroepe>
     {
+        public OuderdomsGroep()
+            :this(default)
+        { }
+
         public OuderdomsGroep(OuderdomsGroepe ouderdomsGroepe)
         {
             this.NameValues = new List<OuderdomsGroepNameValue>();
@@ -62,12 +66,7 @@ namespace Biblioteek.Types
             }
         }
 
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        public void Reset() => this.Value = default;
     }
 
     public class OuderdomsGroepNameValue : INotifyPropertyChanged

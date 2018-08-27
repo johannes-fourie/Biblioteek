@@ -32,7 +32,7 @@ namespace Biblioteek.Services
                 OuderdomsGroep = boekInfo.OuderdomsGroep,
                 Skrywer = boekInfo.Skrywer.Value,
                 Tietel = boekInfo.Tietel.Value,
-                Dewey = boekInfo.Dewey.Number,
+                Dewey = boekInfo.Dewey.Value,
                 Taal = boekInfo.Taal
             };
 
@@ -129,7 +129,7 @@ namespace Biblioteek.Services
             boekRow.OuderdomsGroep = boekInformation.OuderdomsGroep;
             boekRow.Skrywer = boekInformation.Skrywer.Value;
             boekRow.Tietel = boekInformation.Tietel.Value;
-            boekRow.Dewey = boekInformation.Dewey.Number;
+            boekRow.Dewey = boekInformation.Dewey.Value;
 
             this.biblioteek.SaveChanges();
 

@@ -16,5 +16,10 @@ namespace Biblioteek.Katalogus
         {
             (this.DataContext as AddBoekViewModel).Initialize();
         }
+
+        private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            (this.DataContext as AddBoekViewModel).Refresh();
+        }
     }
 }

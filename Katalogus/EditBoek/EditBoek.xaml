@@ -43,10 +43,10 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Tietel" />
-        <TextBox Grid.Column="2" Grid.Row="0" Text="{Binding Tietel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Column="2" Grid.Row="0" Text="{Binding Tietel.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Skrywer"/>
-        <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding Skrywer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding Skrywer.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock Grid.Column="0" Grid.Row="4" Text="Ouderdoms groep" />
         <ItemsControl  Grid.Column="2" Grid.Row="4" 
@@ -90,7 +90,7 @@
         <TextBlock Grid.Column="2" Grid.Row="8" Margin="0,0,5,0" Text="{Binding Nommer}" />
 
         <TextBlock Grid.Column="0" Grid.Row="10" Text="Dewey" VerticalAlignment="Center" FontSize="15" />
-        <TextBox Grid.Column="2" Grid.Row="10" Text="{Binding Dewey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Column="2" Grid.Row="10" Text="{Binding Dewey.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock Grid.Column="0" Grid.Row="12" Text="Taal" VerticalAlignment="Center" FontSize="15" />
         <ItemsControl  Grid.Column="2" Grid.Row="12" 

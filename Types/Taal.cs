@@ -12,8 +12,12 @@ namespace Biblioteek.Types
         Afrikaans
     }
 
-    public class Taal : INotifyPropertyChanged
+    public class Taal : NotifyPropertyChangedBase, IVlaue<Tale>
     {
+        public Taal()
+            :this(default)
+        { }
+
         public Taal(Tale taal)
         {
             this.NameValues = new List<TaalNameValue>();
@@ -48,12 +52,7 @@ namespace Biblioteek.Types
             }
         }
 
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        public void Reset() => this.Value = default;
     }
 
     public class TaalNameValue : INotifyPropertyChanged

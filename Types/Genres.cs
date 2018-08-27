@@ -12,8 +12,12 @@ namespace Biblioteek.Types
         Nie_fiksie
     }
 
-    public class Genre : INotifyPropertyChanged
+    public class Genre : NotifyPropertyChangedBase, IVlaue<Genres>
     {
+        public Genre()
+            :this(default)
+        { }
+
         public Genre(Genres genre)
         {
             this.NameValues = new List<GenreNameValue>();
@@ -42,6 +46,7 @@ namespace Biblioteek.Types
         public List<GenreNameValue> NameValues { get; }
 
         private Genres value;
+
         private bool updatingValue;
 
         public Genres Value
@@ -60,21 +65,15 @@ namespace Biblioteek.Types
             }
         }
 
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public void Reset() => this.Value = default;
 
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 
-    public class GenreNameValue : INotifyPropertyChanged
+    public class GenreNameValue : NotifyPropertyChangedBase
     {
         private bool set;
 
         public event EventHandler<Genres> GenreSet;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public string Name { get; set; }
 
@@ -90,11 +89,6 @@ namespace Biblioteek.Types
                     GenreSet?.Invoke(this, Genre);
                 }
             }
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public Genres Genre { get; set; }
