@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Biblioteek
+namespace Biblioteek.Leerder
 {
     /// <summary>
     /// Interaction logic for Leerder.xaml

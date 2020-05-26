@@ -88,6 +88,15 @@
     </Compile>
     <Compile Include="Katalogus\ListBoeke\ListBoekModel.cs" />
     <Compile Include="Katalogus\ListBoeke\ListBoekViewModel.cs" />
+    <Compile Include="Leerder\AddLeerder\AddLeerder.xaml.cs">
+      <DependentUpon>AddLeerder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Leerder\EditLeerder\EditLeerder.xaml.cs">
+      <DependentUpon>EditLeerder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Leerder\ListLeerder\LysLeerder.xaml.cs">
+      <DependentUpon>LysLeerder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Migrations\201808260928383_AddKatalogusTaal.cs" />
     <Compile Include="Migrations\201808260928383_AddKatalogusTaal.Designer.cs">
@@ -135,7 +144,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Leerder\AddLeerder\AddLeerder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Leerder\EditLeerder\EditLeerder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Leerder\Leerder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Leerder\ListLeerder\LysLeerder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -218,5 +239,6 @@
   <ItemGroup>
     <Resource Include="Bib.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
